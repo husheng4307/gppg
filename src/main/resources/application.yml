@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://49.235.51.95:3306/gppg?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    #url: jdbc:mysql://120.79.159.49:3306/apt2?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: han123
+    type: com.alibaba.druid.pool.DruidDataSource
+  servlet:
+    multipart:
+      #     50*1024*1024 = 50M
+      max-file-size: 52428800
+      #     50*1024*1024*6 = 300M
+      max-request-size: 314572800
+
+
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  application:
+    name: gppg
+  redis:
+    database: 0
+    host: 117.169.41.43
+    port: 6379
+    #    password:
+    password: redispassword
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+    timeout: 1000
+mybatis-plus:
+  mapper-locations:
+    - classpath:/mybatis/*Mapper.xml
+  type-aliases-package: site.beanyon.apt
+  configuration:
+    map-underscore-to-camel-case: false
+logging:
+  level:
+    #    site.beanyon.apt.pc.subscriber.mapper: debug
+    site.beanyon.apt.common.*: debug
+#    root: warn
+server:
+  servlet:
+    context-path: /gppg
+    session:
+      timeout: 86400
