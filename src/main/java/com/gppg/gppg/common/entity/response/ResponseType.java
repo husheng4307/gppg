@@ -23,6 +23,7 @@ public enum ResponseType {
     NOTEXIST(false,1012,"不存在"),
     ILLEGAL_DELETE(false,1013,"删除失败"),
     ILLEGAL_INPUT(false,1014,"必要信息不完整"),
+    SUCCESS_MISSING_NECESSARY_ROLE(true,1023,"登录成功，但必要角色未注册"),
 
     //FAILED_SCZLZERO_JJTH
     // 数据库

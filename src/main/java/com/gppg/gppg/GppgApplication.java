@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan({
-        "com.gppg.gppg.mapper",
+        "com.gppg.gppg.common.mapper",
         "com.gppg.gppg.student.mapper"
 })
 public class GppgApplication {
