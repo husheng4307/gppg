@@ -1,5 +1,7 @@
 package com.gppg.gppg.common.shiro;
 
+import com.gppg.gppg.common.entity.FrontUserDomain;
+import com.gppg.gppg.common.service.FrontUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -11,7 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public class WXFrontUserRealm extends AuthorizingRealm {
     @Autowired
-    private IFrontUserService qdyhService;
+    private FrontUserService frontUserService;
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
@@ -23,10 +25,10 @@ public class WXFrontUserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("执行微信前台认证逻辑");
         UserToken usernamePasswordToken = (UserToken) authenticationToken;
-        QDYH qdyh = qdyhService.getUserByAccount(usernamePasswordToken.getUsername());
+        FrontUserDomain qdyh = frontUserService.getUserByAccount(usernamePasswordToken.getUsername());
         if(qdyh == null){
             return null;
         }
-        return new SimpleAuthenticationInfo(qdyh,qdyh.getQDYH_MM(),getName());
+        return new SimpleAuthenticationInfo(qdyh,qdyh.getPassword(),getName());
     }
 }

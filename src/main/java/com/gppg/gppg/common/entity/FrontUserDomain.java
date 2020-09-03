@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 
@@ -16,7 +17,8 @@ import java.util.Date;
 */
 @TableName("front_user")
 @Data
-public class FrontUserDomain {
+public class FrontUserDomain implements Serializable {
+    private static final long serialVersionUID = 5026666L;
     @TableId(value = "id" , type = IdType.AUTO)
     private int id;
 

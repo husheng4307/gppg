@@ -3,6 +3,7 @@ package com.gppg.gppg.common;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gppg.gppg.common.entity.BackUserDomain;
 import com.gppg.gppg.common.entity.FrontUserDomain;
 import com.gppg.gppg.common.entity.WxyhDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
@@ -46,16 +47,17 @@ public class loginController {
                                        @RequestParam(value = "loginType", required = true) Integer loginType){
         if(loginType.equals(1)) {
             Subject subject = SecurityUtils.getSubject();
-            UserToken token = new UserToken(userName, password,"WebFront");
+            UserToken token = new UserToken(userName, password,"WebBack");
             HttpResponse response = new HttpResponse();
             try {
                 subject.login(token);
-                FrontUserDomain principal = (FrontUserDomain) subject.getPrincipal();
+                BackUserDomain principal = (BackUserDomain) subject.getPrincipal();
 
                 subject.getSession().setAttribute("id", userName);
                 response.setHttpResponse(ResponseType.SUCCESS, principal);
                 return response;
             } catch (Exception e) {
+                e.printStackTrace();
                 response.setHttpResponse(ResponseType.ILLEGAL_ACCOUNT,null);
                 return response;
             }
@@ -100,10 +102,6 @@ public class loginController {
             // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
             WxyhDomain user = this.wxyhMapper.selectById(openid);
 
-            // uuid生成唯一key，用于维护微信小程序用户与服务端的会话
-            String skey = UUID.randomUUID().toString();
-
-
 
             if (user == null) {
                 // 用户信息入库
@@ -128,7 +126,6 @@ public class loginController {
                 //数据封装
                 user = new WxyhDomain();
                 user.setOpenId(openid);
-                user.setSkey(skey);
                 user.setCreateTime(new Date());
                 user.setLastVisitTime(new Date());
                 user.setSessionKey(sessionKey);
@@ -165,8 +162,6 @@ public class loginController {
             } else {
                 // 已存在，更新用户登录时间
                 user.setLastVisitTime(new Date());
-                // 重新设置会话skey
-                user.setSkey(skey);
                 // 重新设置session-key
                 user.setSessionKey(sessionKey);
 

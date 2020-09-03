@@ -1,5 +1,7 @@
 package com.gppg.gppg.common.shiro;
 
+import com.gppg.gppg.common.entity.BackUserDomain;
+import com.gppg.gppg.common.service.BackUserService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
@@ -14,23 +16,14 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class WXBackUserRealm  extends AuthorizingRealm {
+
     @Autowired
-    private IFrontUserService qdyhService;
-    @Autowired
-    private IBackUserService hdyhService;
-    @Autowired
-    private IBackRoleService backRoleService;
+    private BackUserService backUserService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("执行微信后台授权逻辑");
-        SimpleAuthorizationInfo simpleAuthentizationInfo = new SimpleAuthorizationInfo();
-        Subject subject = SecurityUtils.getSubject();
-        HdyhDomain hdyh = (HdyhDomain)(subject.getPrincipal());
-        List<HDJS> hdjsList = backRoleService.getRolesByUid(hdyh.getHdyhId());
-        Set<String> bsSet = hdjsList.stream().map(HDJS::getHDJS_BS).collect(Collectors.toSet());
-        System.out.println(bsSet.toString());
-        simpleAuthentizationInfo.addStringPermissions(bsSet);
-        return simpleAuthentizationInfo;
+        return null;
     }
 
     @Override
@@ -38,11 +31,11 @@ public class WXBackUserRealm  extends AuthorizingRealm {
         System.out.println("执行微信后台认证逻辑");
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken)authenticationToken;
 
-        HdyhDomain hdyh = hdyhService.getUserByAccount(usernamePasswordToken.getUsername());
+        BackUserDomain hdyh = backUserService.getUserByAccount(usernamePasswordToken.getUsername());
         System.out.println(hdyh.toString());
         if(hdyh == null){
             return null;
         }
-        return new SimpleAuthenticationInfo(hdyh,hdyh.getHdyhMm(),getName());
+        return new SimpleAuthenticationInfo(hdyh,hdyh.getPassword(),getName());
     }
 }

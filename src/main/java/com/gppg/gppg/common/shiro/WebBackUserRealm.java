@@ -1,38 +1,26 @@
 package com.gppg.gppg.common.shiro;
 
-import org.apache.shiro.SecurityUtils;
+import com.gppg.gppg.common.entity.BackUserDomain;
+import com.gppg.gppg.common.service.BackUserService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
-import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
+@Slf4j
 public class WebBackUserRealm extends AuthorizingRealm {
 
 
+    @Autowired
+    private BackUserService backUserService;
 
-    @Autowired
-    private IBackUserService hdyhService;
-    @Autowired
-    private IBackRoleService backRoleService;
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
-        System.out.println("执行后台授权逻辑");
-        SimpleAuthorizationInfo simpleAuthentizationInfo = new SimpleAuthorizationInfo();
-        Subject subject = SecurityUtils.getSubject();
-        HdyhDomain hdyh = (HdyhDomain)(subject.getPrincipal());
-        List<HDJS> hdjsList = backRoleService.getRolesByUid(hdyh.getHdyhId());
-        Set<String> bsSet = hdjsList.stream().map(HDJS::getHDJS_BS).collect(Collectors.toSet());
-        System.out.println(bsSet.toString());
-        simpleAuthentizationInfo.addStringPermissions(bsSet);
-        return simpleAuthentizationInfo;
+        log.info("执行后台授权逻辑");
+        return null;
     }
 
     @Override
@@ -41,11 +29,11 @@ public class WebBackUserRealm extends AuthorizingRealm {
         String principal = (String)authenticationToken.getPrincipal();
         UsernamePasswordToken usernamePasswordToken = (UsernamePasswordToken)authenticationToken;
 
-        HdyhDomain hdyh = hdyhService.getUserByAccount(usernamePasswordToken.getUsername());
-        System.out.println(hdyh.toString());
+        BackUserDomain hdyh = backUserService.getUserByAccount(usernamePasswordToken.getUsername());
+
         if(hdyh == null){
             return null;
         }
-        return new SimpleAuthenticationInfo(hdyh,hdyh.getHdyhMm(),ByteSource.Util.bytes(hdyh.getHdyhYan()),getName());
+        return new SimpleAuthenticationInfo(hdyh,hdyh.getPassword(),ByteSource.Util.bytes(hdyh.getSalt()),getName());
     }
 }

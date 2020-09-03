@@ -18,19 +18,19 @@ spring:
     time-zone: GMT+8
   application:
     name: gppg
-  redis:
-    database: 0
-    host: 119.45.222.202
-    port: 6379
-    #    password:
-    password: redispassword
-    jedis:
-      pool:
-        max-active: 8
-        max-wait: -1
-        max-idle: 8
-        min-idle: 0
-    timeout: 1000
+redis:
+  database: 0
+  host: 119.45.222.202
+  port: 6379
+  #    password:
+  password: redispassword
+  jedis:
+    pool:
+      max-active: 8
+      max-wait: -1
+      max-idle: 8
+      min-idle: 0
+  timeout: 1000
 mybatis-plus:
   mapper-locations:
     - classpath:/mybatis/*Mapper.xml

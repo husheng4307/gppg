@@ -1,5 +1,7 @@
 package com.gppg.gppg.common.shiro;
 
+import com.gppg.gppg.common.entity.FrontUserDomain;
+import com.gppg.gppg.common.service.FrontUserService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -14,7 +16,8 @@ public class WebFrontUserRealm extends AuthorizingRealm {
 
 
     @Autowired
-    private IFrontUserService qdyhService;
+    private FrontUserService frontUserService;
+
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         System.out.println("执行前台授权逻辑");
@@ -25,10 +28,10 @@ public class WebFrontUserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("执行前台认证逻辑");
         UserToken usernamePasswordToken = (UserToken) authenticationToken;
-        QDYH qdyh = qdyhService.getUserByAccount(usernamePasswordToken.getUsername());
+        FrontUserDomain qdyh = frontUserService.getUserByAccount(usernamePasswordToken.getUsername());
         if(qdyh == null){
             return null;
         }
-        return new SimpleAuthenticationInfo(qdyh,qdyh.getQDYH_MM(), ByteSource.Util.bytes(qdyh.getQDYH_YAN()),getName());
+        return new SimpleAuthenticationInfo(qdyh,qdyh.getPassword(), ByteSource.Util.bytes(qdyh.getSalt()),getName());
     }
 }

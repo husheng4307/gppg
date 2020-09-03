@@ -1,9 +1,12 @@
 package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -12,7 +15,9 @@ import java.util.Date;
  * des:
  */
 @TableName("back_user")
-public class BackUserDomain {
+@Data
+public class BackUserDomain implements Serializable {
+    private static final long serialVersionUID = 5026666L;
     /**
      * 主键id
      */
@@ -21,48 +26,52 @@ public class BackUserDomain {
     /**
      * 账户
      */
+    @TableField(value = "account")
     String account;
     /**
      * 密码
      */
+    @TableField(value = "password")
     String password;
     /**
      * 盐
      */
+    @TableField(value = "salt")
     String salt;
     /**
      * 名称
      */
+    @TableField(value = "name")
     String name;
     /**
      * 工号
      */
-    @TableId(value = "work_id")
+    @TableField(value = "work_id")
     String workId;
     /**
      * 学校id
      */
-    @TableId(value = "school_id")
+    @TableField(value = "school_id")
     int schoolId;
     /**
      * 是否删除
      */
-    @TableId(value = "is_deleted")
+    @TableField(value = "is_deleted")
     int isDeleted;
     /**
      * 创建时间
      */
-    @TableId(value = "create_time")
+    @TableField(value = "create_time")
     Date createTime;
     /**
      * 更新时间
      */
-    @TableId(value = "update_time")
+    @TableField(value = "update_time")
     Date updateTime;
     /**
      * 创建者id
      */
-    @TableId(value = "create_user_id")
+    @TableField(value = "create_user_id")
     int createUserId;
 
     public int getId() {
