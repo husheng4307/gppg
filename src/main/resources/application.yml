@@ -1,10 +1,10 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://49.235.51.95:3306/gppg?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
+    url: jdbc:mysql://119.45.222.202:3306/gppg?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     #url: jdbc:mysql://120.79.159.49:3306/apt2?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8
     username: root
-    password: han123
+    password: NcGppg@q1w2e3
     type: com.alibaba.druid.pool.DruidDataSource
   servlet:
     multipart:
@@ -13,7 +13,6 @@ spring:
       #     50*1024*1024*6 = 300M
       max-request-size: 314572800
 
-
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
@@ -21,7 +20,7 @@ spring:
     name: gppg
   redis:
     database: 0
-    host: 117.169.41.43
+    host: 119.45.222.202
     port: 6379
     #    password:
     password: redispassword
@@ -41,7 +40,7 @@ mybatis-plus:
 logging:
   level:
     #    site.beanyon.apt.pc.subscriber.mapper: debug
-    site.beanyon.apt.common.*: debug
+    com.gppg.gppg.student.*: debug
 #    root: warn
 server:
   servlet:
