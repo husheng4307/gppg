@@ -1,7 +1,7 @@
 package com.gppg.gppg.student.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gppg.gppg.student.entity.QueryStrategyDomain;
+import com.gppg.gppg.common.entity.ExchangeStrategyDomain;
 import com.gppg.gppg.student.entity.dto.QueryStrategyDto;
 import com.gppg.gppg.student.mapper.QueryStrategy;
 import com.gppg.gppg.student.service.IQueryStrategyService;
@@ -17,11 +17,11 @@ import java.util.List;
  */
 
 @Service
-public class QueryStrategyServiceImpl extends ServiceImpl<QueryStrategy, QueryStrategyDomain> implements IQueryStrategyService {
+public class QueryStrategyServiceImpl extends ServiceImpl<QueryStrategy, ExchangeStrategyDomain> implements IQueryStrategyService {
     @Override
     public List<QueryStrategyDto> queryStrategy(int schoolId) {
         try {
-            List<QueryStrategyDomain> list = this.baseMapper.queryStrategy(schoolId);
+            List<ExchangeStrategyDomain> list = this.baseMapper.queryStrategy(schoolId);
             List<QueryStrategyDto> res = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
                 res.get(i).setStrategyName(list.get(i).getStrategyName());

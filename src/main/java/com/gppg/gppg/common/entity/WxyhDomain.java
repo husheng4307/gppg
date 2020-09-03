@@ -15,9 +15,8 @@ import java.util.Date;
  * @on 19-10-22 下午5:12
  * @Version 1.0
  */
-@TableName("WXYH")
+@TableName("wechat_user")
 public class WxyhDomain {
-
     private static final long serialVersionUID = 1L;
     /**
      * open_id

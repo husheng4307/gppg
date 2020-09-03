@@ -1,7 +1,7 @@
 package com.gppg.gppg.student.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gppg.gppg.student.entity.QueryStrategyDomain;
+import com.gppg.gppg.common.entity.ExchangeStrategyDomain;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.List;
  * date: 2020/9/3 10:42
  * des:
  */
-public interface QueryStrategy extends BaseMapper<QueryStrategyDomain> {
+public interface QueryStrategy extends BaseMapper<ExchangeStrategyDomain> {
     /**
      * 查询积分兑换策略
      * @param schoolId
@@ -20,5 +20,5 @@ public interface QueryStrategy extends BaseMapper<QueryStrategyDomain> {
     @Select("select strategy_name, strategy_description, point_accquired\n" +
             "from point_exchange_strategy\n" +
             "where school_id = #{schoolId}")
-    List<QueryStrategyDomain> queryStrategy(int schoolId);
+    List<ExchangeStrategyDomain> queryStrategy(int schoolId);
 }

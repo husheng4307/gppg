@@ -2,7 +2,8 @@ package com.gppg.gppg.student.controller;
 
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
-import com.gppg.gppg.student.entity.AllSchoolDomain;
+import com.gppg.gppg.common.entity.AllSchoolDomain;
+import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
 import com.gppg.gppg.student.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +29,12 @@ public class RegisterController {
      *
      * @return
      */
-    @RequestMapping(value = "/allSchool", method = RequestMethod.GET)
+    @RequestMapping(value = "/allSchoolAndAcademy", method = RequestMethod.GET)
     public HttpResponse allSchool() {
         // 定义返回
         HttpResponse response = new HttpResponse();
-        List<AllSchoolDomain> list = new LinkedList();
-        list = iRegisterService.allSchool();
+        List<SchoolAndAcademyDto> list = new LinkedList();
+        list = iRegisterService.allSchoolAndAcademy();
         if (list == null) {
             response.setHttpResponse(ResponseType.FAILED, "");
             return response;
