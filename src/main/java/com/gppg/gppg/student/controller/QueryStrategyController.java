@@ -1,6 +1,6 @@
 package com.gppg.gppg.student.controller;
 
-import com.gppg.gppg.entity.response.HttpResponse;
+import com.gppg.gppg.common.entity.response.HttpResponse;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;

@@ -1,8 +1,7 @@
 package com.gppg.gppg.student.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.gppg.gppg.entity.response.HttpResponse;
-import com.gppg.gppg.entity.response.ResponseType;
+import com.gppg.gppg.common.entity.response.HttpResponse;
+import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.student.entity.AllSchoolDomain;
 import com.gppg.gppg.student.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
