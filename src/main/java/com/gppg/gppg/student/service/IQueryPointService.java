@@ -1,6 +1,5 @@
 package com.gppg.gppg.student.service;
 
-import com.gppg.gppg.student.entity.StudentPointDomain;
 import com.gppg.gppg.student.entity.dto.StudentPointDto;
 
 /**

@@ -1,7 +1,6 @@
 package com.gppg.gppg.student.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gppg.gppg.student.entity.StrategyRecordsDomain;
 import com.gppg.gppg.student.entity.dto.StrategyRecordsDto;
 import org.apache.ibatis.annotations.Select;
 

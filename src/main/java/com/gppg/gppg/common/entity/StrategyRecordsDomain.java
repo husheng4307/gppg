@@ -1,4 +1,4 @@
-package com.gppg.gppg.student.entity;
+package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;

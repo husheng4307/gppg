@@ -1,7 +1,8 @@
 package com.gppg.gppg.student.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.gppg.gppg.student.entity.AllSchoolDomain;
+import com.gppg.gppg.common.entity.AcademyDomain;
+import com.gppg.gppg.common.entity.AllSchoolDomain;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -20,4 +21,13 @@ public interface RegisterMapper extends BaseMapper<AllSchoolDomain> {
             "from school\n" +
             "where is_deleted = '0'")
     List<AllSchoolDomain> allSchool();
+
+    /**
+     * 查询所有学院信息
+     * @return
+     */
+    @Select("select *\n" +
+            "from academy\n" +
+            "where is_deleted = '0'")
+    List<AcademyDomain> allAcademy();
 }

@@ -1,6 +1,7 @@
-package com.gppg.gppg.student.entity;
+package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 import javax.persistence.Table;
 
@@ -9,6 +10,7 @@ import javax.persistence.Table;
  * date: 2020/9/3 15:29
  * des:
  */
+@TableName("school")
 public class AllSchoolDomain {
     int id;
     String schoolName;

@@ -1,7 +1,6 @@
 package com.gppg.gppg.student.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.gppg.gppg.student.entity.StudentPointDomain;
 import com.gppg.gppg.student.entity.dto.StudentPointDto;
 import com.gppg.gppg.student.mapper.QueryPoint;
 import com.gppg.gppg.student.service.IQueryPointService;
@@ -13,7 +12,7 @@ import org.springframework.stereotype.Service;
  * des:
  */
 @Service
-public class QueryPointServiceImpl extends ServiceImpl<QueryPoint, StudentPointDomain> implements IQueryPointService {
+public class QueryPointServiceImpl extends ServiceImpl<QueryPoint, StudentPointDto> implements IQueryPointService {
     /**
      * 学生查询自身积分
      *
@@ -23,8 +22,8 @@ public class QueryPointServiceImpl extends ServiceImpl<QueryPoint, StudentPointD
     @Override
     public StudentPointDto studentQueryPoint(int id) {
         try {
-            StudentPointDomain studentPointDomain = null;
-            StudentPointDto studentPointDto = null;
+            StudentPointDto studentPointDomain = null;
+            com.gppg.gppg.student.entity.dto.StudentPointDto studentPointDto = null;
             studentPointDomain = this.baseMapper.queryStudentPoint(id);
             studentPointDto.setNowPoint(studentPointDomain.getSumPoint() - studentPointDomain.getUsedPoint());
             studentPointDto.setSumPoint(studentPointDomain.getSumPoint());

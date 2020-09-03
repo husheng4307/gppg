@@ -1,6 +1,7 @@
 package com.gppg.gppg.student.service;
 
-import com.gppg.gppg.student.entity.AllSchoolDomain;
+import com.gppg.gppg.common.entity.AllSchoolDomain;
+import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
 
 import java.util.List;
 
@@ -11,8 +12,8 @@ import java.util.List;
  */
 public interface IRegisterService {
     /**
-     * 获取所有学校信息
+     * 获取所有学校、学院信息
      * @return
      */
-    List<AllSchoolDomain> allSchool();
+    List<SchoolAndAcademyDto> allSchoolAndAcademy();
 }
