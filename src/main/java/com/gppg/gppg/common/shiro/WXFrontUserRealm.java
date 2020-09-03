@@ -25,7 +25,12 @@ public class WXFrontUserRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
         System.out.println("执行微信前台认证逻辑");
         UserToken usernamePasswordToken = (UserToken) authenticationToken;
+        System.out.println(usernamePasswordToken.getUsername());
         FrontUserDomain qdyh = frontUserService.getUserByAccount(usernamePasswordToken.getUsername());
+
+        System.out.println("-----------------------------------");
+        System.out.println(qdyh);
+
         if(qdyh == null){
             return null;
         }

@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 public interface FrontUserMapper extends BaseMapper<FrontUserDomain> {
 
-    @Select("select * from front_user where student_id = #{username} and is_deleted = 0")
+    @Select("select id,name,school_id,academy_id,student_id,open_id,is_deleted,create_time,update_time,password,salt from front_user where student_id = #{username} and is_deleted = 0")
     FrontUserDomain getUserByAccount(String username);
 }

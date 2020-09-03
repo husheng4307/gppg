@@ -61,97 +61,99 @@ public class loginController {
                 response.setHttpResponse(ResponseType.ILLEGAL_ACCOUNT,null);
                 return response;
             }
-        }
-        else{
+        } else{
             HttpResponse response = new HttpResponse();
 
-            // 用户非敏感信息：rawData
-            // 签名：signature
-            log.info("rawData = " + rawData);
-            JSONObject rawDataJson = null;
-            try {
-                rawDataJson = JSON.parseObject(rawData);
-            } catch (Exception e) {
-                response.setHttpResponse(ResponseType.UNKNOWN,"json转换");
-                return response;
-            }
-
-            // 1.接收小程序发送的code
-            // 2.开发者服务器 登录凭证校验接口 appi + appsecret + code
-            System.out.println("code = "+ code);
-            JSONObject SessionKeyOpenId = null;
-            try {
-                SessionKeyOpenId = WechatUtil.getSessionKeyOrOpenId(code);
-            } catch (Exception e) {
-                response.setHttpResponse(ResponseType.UNKNOWN,"获取SessionKey、OpenId失败");
-                return response;
-            }
-
-            // 3.接收微信接口服务 获取返回的参数
-            String openid = SessionKeyOpenId.getString("openid");
-            System.out.println("openid = " + openid);
-            String sessionKey = SessionKeyOpenId.getString("session_key");
-            System.out.println("session_key = " + sessionKey);
-
-            // 4.校验签名 小程序发送的签名signature与服务器端生成的签名signature2 = sha1(rawData + sessionKey)
-//        String signature2 = DigestUtils.sha1Hex(rawData + sessionKey);
-//        if (!signature.equals(signature2)) {
-//            return GlobalResult.build(500, "签名校验失败", null);
-//        }
-
-            // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
-            WxyhDomain user = this.wxyhMapper.selectById(openid);
-
-
-            if (user == null) {
-                // 用户信息入库
-                String nickName = null;
-                String avatarUrl = null;
-                String gender = null;
-                String city = null;
-                String country = null;
-                String province = null;
-                try {
-                    nickName = rawDataJson.getString("nickName");
-                    avatarUrl = rawDataJson.getString("avatarUrl");
-                    gender = rawDataJson.getString("gender");
-                    city = rawDataJson.getString("city");
-                    country = rawDataJson.getString("country");
-                    province = rawDataJson.getString("province");
-                } catch (Exception e) {
-                    response.setHttpResponse(ResponseType.UNKNOWN,"rawDataJson失效");
-                    return response;
-                }
-
-                //数据封装
-                user = new WxyhDomain();
-                user.setOpenId(openid);
-                user.setCreateTime(new Date());
-                user.setLastVisitTime(new Date());
-                user.setSessionKey(sessionKey);
-                user.setCity(city);
-                user.setProvince(province);
-                user.setCountry(country);
-                user.setAvatarUrl(avatarUrl);
-                user.setGender(Integer.parseInt(gender));
-                user.setNickName(nickName);
-
-                log.info("user = " + user);
-
-                try {
-                    this.wxyhMapper.insert(user);
-                } catch (Exception e) {
-                    response.setHttpResponse(ResponseType.UNKNOWN,"插入微信用户表失败");
-                    return response;
-                }
+//            // 用户非敏感信息：rawData
+//            // 签名：signature
+//            log.info("rawData = " + rawData);
+//            JSONObject rawDataJson = null;
+//            try {
+//                rawDataJson = JSON.parseObject(rawData);
+//            } catch (Exception e) {
+//                response.setHttpResponse(ResponseType.UNKNOWN,"json转换");
+//                return response;
+//            }
+//
+//            // 1.接收小程序发送的code
+//            // 2.开发者服务器 登录凭证校验接口 appi + appsecret + code
+//            System.out.println("code = "+ code);
+//            JSONObject SessionKeyOpenId = null;
+//            try {
+//                SessionKeyOpenId = WechatUtil.getSessionKeyOrOpenId(code);
+//            } catch (Exception e) {
+//                response.setHttpResponse(ResponseType.UNKNOWN,"获取SessionKey、OpenId失败");
+//                return response;
+//            }
+//
+//            // 3.接收微信接口服务 获取返回的参数
+//            String openid = SessionKeyOpenId.getString("openid");
+//            System.out.println("openid = " + openid);
+//            String sessionKey = SessionKeyOpenId.getString("session_key");
+//            System.out.println("session_key = " + sessionKey);
+//
+//            // 4.校验签名 小程序发送的签名signature与服务器端生成的签名signature2 = sha1(rawData + sessionKey)
+////        String signature2 = DigestUtils.sha1Hex(rawData + sessionKey);
+////        if (!signature.equals(signature2)) {
+////            return GlobalResult.build(500, "签名校验失败", null);
+////        }
+//
+//            // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；不是的话，更新最新登录时间
+//            WxyhDomain user = this.wxyhMapper.selectById(openid);
+//
+//
+            if (
+//                    user == null
+                    false
+            ) {
+//                // 用户信息入库
+//                String nickName = null;
+//                String avatarUrl = null;
+//                String gender = null;
+//                String city = null;
+//                String country = null;
+//                String province = null;
+//                try {
+//                    nickName = rawDataJson.getString("nickName");
+//                    avatarUrl = rawDataJson.getString("avatarUrl");
+//                    gender = rawDataJson.getString("gender");
+//                    city = rawDataJson.getString("city");
+//                    country = rawDataJson.getString("country");
+//                    province = rawDataJson.getString("province");
+//                } catch (Exception e) {
+//                    response.setHttpResponse(ResponseType.UNKNOWN,"rawDataJson失效");
+//                    return response;
+//                }
+//
+//                //数据封装
+//                user = new WxyhDomain();
+//                user.setOpenId(openid);
+//                user.setCreateTime(new Date());
+//                user.setLastVisitTime(new Date());
+//                user.setSessionKey(sessionKey);
+//                user.setCity(city);
+//                user.setProvince(province);
+//                user.setCountry(country);
+//                user.setAvatarUrl(avatarUrl);
+//                user.setGender(Integer.parseInt(gender));
+//                user.setNickName(nickName);
+//
+//                log.info("user = " + user);
+//
+//                try {
+//                    this.wxyhMapper.insert(user);
+//                } catch (Exception e) {
+//                    response.setHttpResponse(ResponseType.UNKNOWN,"插入微信用户表失败");
+//                    return response;
+//                }
 
                 //查询用户是否注册过 QDYH
-                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId(openid);
+                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId("openid");
                 log.info(qdyh.toString());
 
                 //前端用户未注册，返回openid
                 if (qdyh == null) {
-                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,openid);
+                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid");
                     return response;
                 }else{
                     //前端用户已注册
@@ -159,39 +161,39 @@ public class loginController {
                     return response;
                 }
 
-            } else {
-                // 已存在，更新用户登录时间
-                user.setLastVisitTime(new Date());
-                // 重新设置session-key
-                user.setSessionKey(sessionKey);
-
-                this.wxyhMapper.updateById(user);
+            }
+        else {
+//                // 已存在，更新用户登录时间
+//                user.setLastVisitTime(new Date());
+//                // 重新设置session-key
+//                user.setSessionKey(sessionKey);
+//
+//                this.wxyhMapper.updateById(user);
 
                 //查询前端用户注册情况
-                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId(openid);
+                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId("openid");
                 log.info(String.valueOf(qdyh1));
 
                 //前端用户未注册，返回skey
                 if (qdyh1 == null) {
-                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,openid);
-                    return response;
+                    return new HttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid");
                 }
 
                 //前端用户已注册，更新QDYH表中skey，上次登录时间
                 Subject subject = SecurityUtils.getSubject();
+                System.out.println("qdyh1 = " + qdyh1.toString());
                 UserToken token = new UserToken(qdyh1.getStudentId(), qdyh1.getPassword(),"WXFront");
                 try {
                     subject.login(token);
                 } catch (Exception e) {
-                    response.setHttpResponse(ResponseType.ILLEGAL_ACCOUNT, "/apt/front/login/toLogin");
-                    return response;
+                    e.printStackTrace();
+                    return new HttpResponse(ResponseType.ILLEGAL_ACCOUNT, "/apt/front/login/toLogin");
                 }
 
 //                subject.getSession().setAttribute("id", qdyh1.getQDYH_ZH());
 
                 //返回结果
-                response.setHttpResponse(ResponseType.SUCCESS,openid);
-                return response;
+                return new HttpResponse(ResponseType.SUCCESS,"openid");
             }
 
         }

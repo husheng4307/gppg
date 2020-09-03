@@ -19,6 +19,7 @@ import java.util.Date;
 @Data
 public class FrontUserDomain implements Serializable {
     private static final long serialVersionUID = 5026666L;
+
     @TableId(value = "id" , type = IdType.AUTO)
     private int id;
 
@@ -31,7 +32,7 @@ public class FrontUserDomain implements Serializable {
     @TableField("academy_id")
     private int academyId;
 
-    @TableField("student_id")
+    @TableField(value = "student_id")
     private String studentId;
 
     @TableField("open_id")

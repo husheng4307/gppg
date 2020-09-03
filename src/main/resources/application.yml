@@ -34,9 +34,9 @@ redis:
 mybatis-plus:
   mapper-locations:
     - classpath:/mybatis/*Mapper.xml
-  type-aliases-package: site.beanyon.apt
+  type-aliases-package: com.gppg.gppg
   configuration:
-    map-underscore-to-camel-case: false
+    map-underscore-to-camel-case: true
 logging:
   level:
     #    site.beanyon.apt.pc.subscriber.mapper: debug
