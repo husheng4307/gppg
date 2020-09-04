@@ -5,8 +5,8 @@ import com.gppg.gppg.common.entity.PointRecordsDomain;
 
 /**
  * @author: Yang
- * date: 2020/9/3 22:09
+ * date: 2020/9/3 21:01
  * des:
  */
-public interface PointRecordsMapper extends BaseMapper<PointRecordsDomain> {
+public interface UsePointMapper extends BaseMapper<PointRecordsDomain> {
 }

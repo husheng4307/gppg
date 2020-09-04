@@ -23,6 +23,9 @@ public enum ResponseType {
     NOTEXIST(false,1012,"不存在"),
     ILLEGAL_DELETE(false,1013,"删除失败"),
     ILLEGAL_INPUT(false,1014,"必要信息不完整"),
+    FAILED_UPDATE_FRONTUSER(false, 1015, "更新前端用户失败"),
+    FAILED_INSUFFICIENT_POINT(false, 1016, "积分不足"),
+    FAILED_UPLOAD_IMAGES(false,1020,"图片上传失败"),
     SUCCESS_MISSING_NECESSARY_ROLE(true,1023,"登录成功，但必要角色未注册"),
 
     //FAILED_SCZLZERO_JJTH

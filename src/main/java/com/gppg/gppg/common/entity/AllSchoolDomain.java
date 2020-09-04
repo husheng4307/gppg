@@ -1,9 +1,12 @@
 package com.gppg.gppg.common.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import javax.persistence.Table;
+import java.util.List;
 
 /**
  * @author: Yang
@@ -12,9 +15,13 @@ import javax.persistence.Table;
  */
 @TableName("school")
 public class AllSchoolDomain {
+    @TableId(value = "id", type = IdType.AUTO)
     int id;
     String schoolName;
     int isDeleted;
+
+    @TableField(exist = false)
+    List<AcademyDomain> academy;
 
     public int getId() {
         return id;
@@ -38,5 +45,13 @@ public class AllSchoolDomain {
 
     public void setIsDeleted(int isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public List<AcademyDomain> getAcademy() {
+        return academy;
+    }
+
+    public void setAcademy(List<AcademyDomain> academy) {
+        this.academy = academy;
     }
 }

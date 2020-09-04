@@ -1,6 +1,7 @@
 package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -21,22 +22,22 @@ public class PointRecordsDomain {
     /**
      * 前端用户id
      */
-    @TableId(value = "front_user_id")
+    @TableField(value = "front_user_id")
     int frontUserId;
     /**
      * 图片存放位置
      */
-    @TableId(value = "image_path")
+    @TableField(value = "image_path")
     String imagePath;
     /**
      * 创建时间
      */
-    @TableId(value = "create_time")
+    @TableField(value = "create_time")
     Date createTime;
     /**
      * 是否删除
      */
-    @TableId(value = "is_deleted")
+    @TableField(value = "is_deleted")
     int isDeleted;
 
     public int getId() {

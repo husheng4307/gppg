@@ -46,14 +46,13 @@ class GppgApplicationTests {
         //加盐
         String passWithSalt = MD5.md5("123456",salt);
 
-        domain.setName("student");
+        domain.setName("yang");
         domain.setSchoolId(1);
         domain.setAcademyId(1);
-        domain.setStudentId("111111");
-        domain.setOpenId("openid");
+        domain.setStudentId("123123");
+        domain.setOpenId("openid123");
         domain.setPassword(passWithSalt);
         domain.setSalt(salt);
-
 
         frontUserService.save(domain);
     }

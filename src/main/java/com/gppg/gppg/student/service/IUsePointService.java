@@ -5,10 +5,8 @@ import com.gppg.gppg.common.entity.PointRecordsDomain;
 
 /**
  * @author: Yang
- * date: 2020/9/3 19:25
- * des: point_records 表 对应Service
+ * date: 2020/9/3 20:59
+ * des:
  */
-
-public interface IGetPointService extends IService<PointRecordsDomain> {
-
+public interface IUsePointService extends IService<PointRecordsDomain> {
 }

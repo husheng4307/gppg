@@ -1,5 +1,7 @@
 package com.gppg.gppg.student.entity.dto;
 
+import com.baomidou.mybatisplus.annotation.TableField;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 /**
@@ -7,10 +9,15 @@ import org.springframework.stereotype.Service;
  * date: 2020/9/3 10:11
  * des:
  */
+@Data
 public class StudentPointDto {
     Integer sumPoint;
     Integer usedPoint;
     Integer nowPoint;
+
+    public StudentPointDto() {
+
+    }
 
     public StudentPointDto(Integer sumPoint, Integer usedPoint, Integer nowPoint) {
         this.sumPoint = sumPoint;
@@ -25,29 +32,5 @@ public class StudentPointDto {
                 ", usedPoint=" + usedPoint +
                 ", nowPoint=" + nowPoint +
                 '}';
-    }
-
-    public Integer getSumPoint() {
-        return sumPoint;
-    }
-
-    public void setSumPoint(Integer sumPoint) {
-        this.sumPoint = sumPoint;
-    }
-
-    public Integer getUsedPoint() {
-        return usedPoint;
-    }
-
-    public void setUsedPoint(Integer usedPoint) {
-        this.usedPoint = usedPoint;
-    }
-
-    public Integer getNowPoint() {
-        return nowPoint;
-    }
-
-    public void setNowPoint(Integer nowPoint) {
-        this.nowPoint = nowPoint;
     }
 }

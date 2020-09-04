@@ -148,19 +148,18 @@ public class loginController {
 //                }
 
                 //查询用户是否注册过 QDYH
-                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId("openid");
+                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId("openid123");
                 log.info(qdyh.toString());
 
                 //前端用户未注册，返回openid
                 if (qdyh == null) {
-                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid");
+                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid123");
                     return response;
                 }else{
                     //前端用户已注册
                     response.setHttpResponse(ResponseType.FAILED,"前端用户已注册，但未授权微信！");
                     return response;
                 }
-
             }
         else {
 //                // 已存在，更新用户登录时间
@@ -171,12 +170,12 @@ public class loginController {
 //                this.wxyhMapper.updateById(user);
 
                 //查询前端用户注册情况
-                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId("openid");
+                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId("openid123");
                 log.info(String.valueOf(qdyh1));
 
                 //前端用户未注册，返回skey
                 if (qdyh1 == null) {
-                    return new HttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid");
+                    return new HttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid123");
                 }
 
                 //前端用户已注册，更新QDYH表中skey，上次登录时间
@@ -193,7 +192,7 @@ public class loginController {
 //                subject.getSession().setAttribute("id", qdyh1.getQDYH_ZH());
 
                 //返回结果
-                return new HttpResponse(ResponseType.SUCCESS,"openid");
+                return new HttpResponse(ResponseType.SUCCESS,"openid123");
             }
 
         }

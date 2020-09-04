@@ -1,6 +1,7 @@
 package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -21,37 +22,37 @@ public class ExchangeStrategyDomain {
     /**
      * 学校id
      */
-    @TableId(value = "school_id")
+    @TableField(value = "school_id")
     int schoolId;
     /**
      * 策略名称
      */
-    @TableId(value = "strategy_name")
+    @TableField(value = "strategy_name")
     String strategyName;
     /**
      * 策略描述
      */
-    @TableId(value = "strategy_description")
+    @TableField(value = "strategy_description")
     String strategyDescription;
     /**
      * 兑换所需积分
      */
-    @TableId(value = "point_accquired")
+    @TableField(value = "point_accquired")
     int pointAccquired;
     /**
      * 创建时间
      */
-    @TableId(value = "create_time")
+    @TableField(value = "create_time")
     Date createTime;
     /**
      * 创建者id
      */
-    @TableId(value = "create_user_id")
+    @TableField(value = "create_user_id")
     int createUserId;
     /**
      * 是否删除
      */
-    @TableId(value = "is_deleted")
+    @TableField(value = "is_deleted")
     int isDeleted;
 
     public int getId() {

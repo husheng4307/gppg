@@ -6,9 +6,18 @@ package com.gppg.gppg.student.entity.dto;
  * des: 
  */
 public class QueryStrategyDto {
+    int id;
     String strategyName;
     String strategyDescription;
     int pointAccquired;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getStrategyName() {
         return strategyName;
