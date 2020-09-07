@@ -1,6 +1,7 @@
 package com.gppg.gppg.student.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gppg.gppg.common.entity.StrategyRecordsDomain;
 import com.gppg.gppg.student.entity.dto.StrategyRecordsDto;
 import com.gppg.gppg.student.mapper.QueryExchangeProgress;
 import com.gppg.gppg.student.service.IStrategyRecordsService;
@@ -15,7 +16,7 @@ import java.util.List;
  * des:
  */
 @Service
-public class StrategyRecordsServiceImpl extends ServiceImpl<QueryExchangeProgress, StrategyRecordsDto> implements IStrategyRecordsService {
+public class StrategyRecordsServiceImpl extends ServiceImpl<QueryExchangeProgress, StrategyRecordsDomain> implements IStrategyRecordsService{
 
     /**
      * 学生查询兑换信息以及进度

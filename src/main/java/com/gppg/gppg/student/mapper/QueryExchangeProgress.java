@@ -1,7 +1,9 @@
 package com.gppg.gppg.student.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.gppg.gppg.common.entity.StrategyRecordsDomain;
 import com.gppg.gppg.student.entity.dto.StrategyRecordsDto;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -11,7 +13,7 @@ import java.util.List;
  * date: 2020/9/3 11:30
  * des: 
  */
-public interface QueryExchangeProgress extends BaseMapper<StrategyRecordsDto> {
+public interface QueryExchangeProgress extends BaseMapper<StrategyRecordsDomain> {
     /**
      * 学生查询兑换记录
      * @param id
@@ -27,5 +29,5 @@ public interface QueryExchangeProgress extends BaseMapper<StrategyRecordsDto> {
             "     point_exchange_strategy b\n" +
             "where a.point_exchange_strategy = b.id\n" +
             "  and a.front_user_id = #{id}")
-    List<StrategyRecordsDto> queryExchangeProgress(int id);
+    List<StrategyRecordsDto> queryExchangeProgress(@Param("id") int id);
 }

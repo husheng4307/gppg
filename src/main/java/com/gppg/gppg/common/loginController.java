@@ -160,7 +160,6 @@ public class loginController {
                     response.setHttpResponse(ResponseType.FAILED,"前端用户已注册，但未授权微信！");
                     return response;
                 }
-
             }
         else {
 
@@ -175,7 +174,9 @@ public class loginController {
 
                 //前端用户已注册，更新QDYH表中skey，上次登录时间
                 Subject subject = SecurityUtils.getSubject();
-                UserToken token = new UserToken(qdyh1.getStudentId(), qdyh1.getPassword(),"WXFront");
+
+                System.out.println("qdyh1 = " + qdyh1.toString());
+                UserToken token = new UserToken(qdyh1.getphoneNumber(), qdyh1.getPassword(),"WXFront");
                 try {
                     subject.login(token);
                 } catch (Exception e) {
@@ -187,6 +188,7 @@ public class loginController {
 
                 //返回结果
                 return new HttpResponse(ResponseType.SUCCESS,openid);
+
             }
 
         }

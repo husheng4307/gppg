@@ -1,6 +1,7 @@
 package com.gppg.gppg.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -19,21 +20,22 @@ public class FrontUserPointsDomain {
     /**
      * 前端用户id
      */
-    @TableId(value = "front_user_id")
+    @TableField(value = "front_user_id")
     int frontUserId;
     /**
      * 积分
      */
+    @TableField(value = "point")
     int point;
     /**
      * 已兑换积分
      */
-    @TableId(value = "exchanged_point")
+    @TableField(value = "exchanged_point")
     int exchangedPoint;
     /**
      * 是否删除
      */
-    @TableId(value = "is_deleted")
+    @TableField(value = "is_deleted")
     int isDeleted;
 
     public int getId() {

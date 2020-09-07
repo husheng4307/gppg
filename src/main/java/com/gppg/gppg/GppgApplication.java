@@ -7,7 +7,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan({
         "com.gppg.gppg.common.mapper",
-        "com.gppg.gppg.student.mapper"
+        "com.gppg.gppg.student.mapper",
+        "com.gppg.gppg.administrators.mapper"
 })
 public class GppgApplication {
 

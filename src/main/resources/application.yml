@@ -40,7 +40,8 @@ mybatis-plus:
 logging:
   level:
     #    site.beanyon.apt.pc.subscriber.mapper: debug
-    com.gppg.gppg.student.*: debug
+    com.gppg.gppg.*: debug
+
 #    root: warn
 server:
   servlet:

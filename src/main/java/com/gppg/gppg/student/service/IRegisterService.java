@@ -1,5 +1,6 @@
 package com.gppg.gppg.student.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.gppg.gppg.common.entity.AllSchoolDomain;
 import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
 
@@ -10,10 +11,10 @@ import java.util.List;
  * date: 2020/9/3 15:35
  * des:
  */
-public interface IRegisterService {
+public interface IRegisterService extends IService<AllSchoolDomain> {
     /**
      * 获取所有学校、学院信息
      * @return
      */
-    List<SchoolAndAcademyDto> allSchoolAndAcademy();
+    List<AllSchoolDomain> allSchoolAndAcademy();
 }

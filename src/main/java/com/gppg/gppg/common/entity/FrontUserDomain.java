@@ -32,8 +32,8 @@ public class FrontUserDomain implements Serializable {
     @TableField("academy_id")
     private int academyId;
 
-    @TableField(value = "student_id")
-    private String studentId;
+    @TableField(value = "phone_number")
+    private String phoneNumber;
 
     @TableField("open_id")
     private String openId;
@@ -53,4 +53,109 @@ public class FrontUserDomain implements Serializable {
     @TableField("salt")
     private String salt;
 
+    public FrontUserDomain(){
+
+    }
+
+    public FrontUserDomain(String name, int schoolId, int academyId, String phoneNumber, String openId, String password, String salt) {
+        this.name = name;
+        this.schoolId = schoolId;
+        this.academyId = academyId;
+        this.phoneNumber = phoneNumber;
+        this.openId = openId;
+        this.password = password;
+        this.salt = salt;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSchoolId() {
+        return schoolId;
+    }
+
+    public void setSchoolId(int schoolId) {
+        this.schoolId = schoolId;
+    }
+
+    public int getAcademyId() {
+        return academyId;
+    }
+
+    public void setAcademyId(int academyId) {
+        this.academyId = academyId;
+    }
+
+    public String getphoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setphoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public int getTagDeleted() {
+        return tagDeleted;
+    }
+
+    public void setTagDeleted(int tagDeleted) {
+        this.tagDeleted = tagDeleted;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 }

@@ -24,9 +24,12 @@ public class QueryStrategyServiceImpl extends ServiceImpl<QueryStrategy, Exchang
             List<ExchangeStrategyDomain> list = this.baseMapper.queryStrategy(schoolId);
             List<QueryStrategyDto> res = new ArrayList<>();
             for (int i = 0; i < list.size(); i++) {
-                res.get(i).setStrategyName(list.get(i).getStrategyName());
-                res.get(i).setPointAccquired(list.get(i).getPointAccquired());
-                res.get(i).setStrategyDescription(list.get(i).getStrategyDescription());
+                QueryStrategyDto dto = new QueryStrategyDto();
+                dto.setId(list.get(i).getId());
+                dto.setStrategyName(list.get(i).getStrategyName());
+                dto.setPointAccquired(list.get(i).getPointAccquired());
+                dto.setStrategyDescription(list.get(i).getStrategyDescription());
+                res.add(dto);
             }
             return res;
         } catch (Exception e) {

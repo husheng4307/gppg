@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author: Yang
@@ -20,25 +21,22 @@ import java.util.List;
 public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, AllSchoolDomain> implements IRegisterService {
 
     @Override
-    public List<SchoolAndAcademyDto> allSchoolAndAcademy() {
+    public List<AllSchoolDomain> allSchoolAndAcademy() {
         try {
             List<AllSchoolDomain> school = this.baseMapper.allSchool();
             List<AcademyDomain> academy = this.baseMapper.allAcademy();
-            ArrayList<SchoolAndAcademyDto> list = new ArrayList<>();
-            ArrayList<SchoolAndAcademyDto.Academy> tmp = new ArrayList<>();
 
             for (int i = 0; i < school.size(); i++) {
-                list.get(i).setXxid(school.get(i).getId());
-                list.get(i).setXxmc(school.get(i).getSchoolName());
+                List<AcademyDomain> list = new ArrayList<>();
                 for (int j = 0; j < academy.size(); j++) {
-                    if (school.get(i).getId() == academy.get(j).getSchool_id()) {
-                        tmp.get(i).setXyid(academy.get(j).getId());
-                        tmp.get(i).setXymc(academy.get(j).getAcademy_name());
+                    if (school.get(i).getId() == academy.get(j).getSchoolId()) {
+                        list.add(academy.get(j));
                     }
                 }
-                list.get(i).setXy(tmp);
+                school.get(i).setAcademy(list);
             }
-            return list;
+
+            return school;
         } catch (Exception e) {
             e.printStackTrace();
         }

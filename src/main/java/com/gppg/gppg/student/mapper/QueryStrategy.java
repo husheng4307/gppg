@@ -17,7 +17,7 @@ public interface QueryStrategy extends BaseMapper<ExchangeStrategyDomain> {
      * @param schoolId
      * @return
      */
-    @Select("select strategy_name, strategy_description, point_accquired\n" +
+    @Select("select id, strategy_name, strategy_description, point_accquired\n" +
             "from point_exchange_strategy\n" +
             "where school_id = #{schoolId}")
     List<ExchangeStrategyDomain> queryStrategy(int schoolId);
