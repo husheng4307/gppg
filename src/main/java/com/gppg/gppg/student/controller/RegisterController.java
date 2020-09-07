@@ -71,7 +71,7 @@ public class RegisterController {
             @RequestParam("name") String name,
             @RequestParam("schoolId") int schoolId,
             @RequestParam("academyId") int academyId,
-            @RequestParam("xm") String studentId,
+            @RequestParam("xm") String phoneNumber,
             @RequestParam("openid") String openid) {
 
         //定义通用类
@@ -82,11 +82,10 @@ public class RegisterController {
 
         //如果该用户曾经注册过前端用户，则绑定其微信openid 至 该前端用户
         QueryWrapper<FrontUserDomain> wrapper = new QueryWrapper<>();
-        wrapper.eq("student_id", studentId);
+        wrapper.eq("phone_number", phoneNumber);
         FrontUserDomain frontUser = frontUserService.getOne(wrapper);
         if (frontUser != null) {
             frontUser.setOpenId(openid);
-//            qdyhHasSfz.setQDYH_SCDL(new Date());
 
             try {
                 frontUserService.updateById(frontUser);
@@ -97,7 +96,7 @@ public class RegisterController {
 
             //前端用户已注册，注册完后登录
             Subject subject = SecurityUtils.getSubject();
-            UserToken token = new UserToken(frontUser.getStudentId(), frontUser.getPassword(), "WXFront");
+            UserToken token = new UserToken(frontUser.getphoneNumber(), frontUser.getPassword(), "WXFront");
             try {
                 subject.login(token);
             } catch (Exception e) {
@@ -116,7 +115,7 @@ public class RegisterController {
         //加盐
         String passWithSalt = MD5.md5(mm, salt);
 //        FrontUserDomain frontUserDomain = new FrontUserDomain(wxyhDomain, zh, passWithSalt, salt, convert2Date, sfz, xm, dh);
-        FrontUserDomain frontUserDomain = new FrontUserDomain(name, schoolId, academyId, studentId, openid, passWithSalt, salt);
+        FrontUserDomain frontUserDomain = new FrontUserDomain(name, schoolId, academyId, phoneNumber, openid, passWithSalt, salt);
 
         try {
             frontUserService.save(frontUserDomain);

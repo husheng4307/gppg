@@ -49,7 +49,7 @@ class GppgApplicationTests {
         domain.setName("yang");
         domain.setSchoolId(1);
         domain.setAcademyId(1);
-        domain.setStudentId("123123");
+        domain.setphoneNumber("123123");
         domain.setOpenId("openid123");
         domain.setPassword(passWithSalt);
         domain.setSalt(salt);

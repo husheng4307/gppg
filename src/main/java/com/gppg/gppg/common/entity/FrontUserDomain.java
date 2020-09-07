@@ -32,8 +32,8 @@ public class FrontUserDomain implements Serializable {
     @TableField("academy_id")
     private int academyId;
 
-    @TableField(value = "student_id")
-    private String studentId;
+    @TableField(value = "phone_number")
+    private String phoneNumber;
 
     @TableField("open_id")
     private String openId;
@@ -57,11 +57,11 @@ public class FrontUserDomain implements Serializable {
 
     }
 
-    public FrontUserDomain(String name, int schoolId, int academyId, String studentId, String openId, String password, String salt) {
+    public FrontUserDomain(String name, int schoolId, int academyId, String phoneNumber, String openId, String password, String salt) {
         this.name = name;
         this.schoolId = schoolId;
         this.academyId = academyId;
-        this.studentId = studentId;
+        this.phoneNumber = phoneNumber;
         this.openId = openId;
         this.password = password;
         this.salt = salt;
@@ -103,12 +103,12 @@ public class FrontUserDomain implements Serializable {
         this.academyId = academyId;
     }
 
-    public String getStudentId() {
-        return studentId;
+    public String getphoneNumber() {
+        return phoneNumber;
     }
 
-    public void setStudentId(String studentId) {
-        this.studentId = studentId;
+    public void setphoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getOpenId() {

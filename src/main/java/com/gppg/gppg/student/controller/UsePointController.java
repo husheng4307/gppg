@@ -7,8 +7,8 @@ import com.gppg.gppg.common.entity.FrontUserPointsDomain;
 import com.gppg.gppg.common.entity.StrategyRecordsDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
+import com.gppg.gppg.common.service.FrontUserPointService;
 import com.gppg.gppg.student.service.IExchangesStrategyService;
-import com.gppg.gppg.student.service.IFrontUserPointService;
 import com.gppg.gppg.student.service.IStrategyRecordsService;
 import com.gppg.gppg.student.service.IUsePointService;
 import org.apache.shiro.SecurityUtils;
@@ -32,7 +32,7 @@ public class UsePointController {
     IExchangesStrategyService iExchangesStrategyService;
 
     @Autowired
-    IFrontUserPointService iFrontUserPointService;
+    FrontUserPointService iFrontUserPointService;
 
     @Autowired
     IStrategyRecordsService iStrategyRecordsService;

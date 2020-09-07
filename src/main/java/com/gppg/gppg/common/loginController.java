@@ -181,7 +181,7 @@ public class loginController {
                 //前端用户已注册，更新QDYH表中skey，上次登录时间
                 Subject subject = SecurityUtils.getSubject();
                 System.out.println("qdyh1 = " + qdyh1.toString());
-                UserToken token = new UserToken(qdyh1.getStudentId(), qdyh1.getPassword(),"WXFront");
+                UserToken token = new UserToken(qdyh1.getphoneNumber(), qdyh1.getPassword(),"WXFront");
                 try {
                     subject.login(token);
                 } catch (Exception e) {

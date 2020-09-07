@@ -6,8 +6,8 @@ import com.gppg.gppg.common.entity.FrontUserPointsDomain;
 import com.gppg.gppg.common.entity.PointRecordsDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
+import com.gppg.gppg.common.service.FrontUserPointService;
 import com.gppg.gppg.student.entity.exception.CommonException;
-import com.gppg.gppg.student.service.IFrontUserPointService;
 import com.gppg.gppg.student.service.IGetPointService;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.shiro.SecurityUtils;
@@ -15,7 +15,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -47,7 +46,7 @@ public class GetPointController {
     IGetPointService getPointService;
 
     @Autowired
-    IFrontUserPointService iFrontUserPointService;
+    FrontUserPointService iFrontUserPointService;
 
     @RequestMapping(value = "/uploadImage", method = {RequestMethod.POST, RequestMethod.GET})
     public HttpResponse uploadImageForGetPoint(HttpServletRequest request,

@@ -4,9 +4,12 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gppg.gppg.common.entity.FrontUserDomain;
 import com.gppg.gppg.common.entity.FrontUserPointsDomain;
 import com.gppg.gppg.student.entity.dto.StudentPointDto;
+import com.gppg.gppg.student.entity.vo.PersonalInfoVo;
 import com.gppg.gppg.student.mapper.QueryPoint;
 import com.gppg.gppg.student.service.IQueryPointService;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * @author: Yang
@@ -37,5 +40,17 @@ public class QueryPointServiceImpl extends ServiceImpl<QueryPoint, FrontUserPoin
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 学生查询自身信息
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<PersonalInfoVo> queryPersonalInfo(int userId) {
+        List<PersonalInfoVo> list = this.baseMapper.queryPersonalInfo(userId);
+        return list;
     }
 }
