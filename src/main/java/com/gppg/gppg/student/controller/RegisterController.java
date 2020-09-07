@@ -71,7 +71,7 @@ public class RegisterController {
             @RequestParam("name") String name,
             @RequestParam("schoolId") int schoolId,
             @RequestParam("academyId") int academyId,
-            @RequestParam("xm") String phoneNumber,
+            @RequestParam("phoneNumber") String phoneNumber,
             @RequestParam("openid") String openid) {
 
         //定义通用类

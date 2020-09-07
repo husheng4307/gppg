@@ -4,6 +4,7 @@ import com.gppg.gppg.common.entity.BackUserDomain;
 import com.gppg.gppg.common.entity.FrontUserDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
+import com.gppg.gppg.student.entity.dto.StudentPointDto;
 import com.gppg.gppg.student.service.IQueryPointService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -44,7 +45,11 @@ public class QueryPointController {
         System.out.println(frontUser);
 
         int id = frontUser.getId();
-        response.setHttpResponse(ResponseType.SUCCESS, iQueryPointService.studentQueryPoint(id));
+        StudentPointDto studentPointDto = iQueryPointService.studentQueryPoint(id);
+        if (studentPointDto == null) {
+            response.setHttpResponse(ResponseType.FAILED, "操作失败");
+        }
+        response.setHttpResponse(ResponseType.SUCCESS, studentPointDto);
         return response;
     }
 }

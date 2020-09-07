@@ -15,6 +15,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
@@ -22,7 +23,7 @@ import java.util.Date;
 /**
  * @author: Yang
  * date: 2020/9/7 10:54
- * des: 
+ * des:
  */
 @RestController
 @RequestMapping("/administrators")
@@ -49,7 +50,9 @@ public class ManageInfoController {
      * @return
      */
     @RequestMapping(value = "/dealExchangeApply", method = RequestMethod.POST)
-    public HttpResponse DealExchangeApply(int frontUserId, int exchangeRecordsId, int isApproved) {
+    public HttpResponse DealExchangeApply(@RequestParam(value = "frontUserId") int frontUserId,
+                                          @RequestParam(value = "exchangeRecordsId") int exchangeRecordsId,
+                                          @RequestParam(value = "isApproved") int isApproved) {
         HttpResponse response = new HttpResponse();
 
         //获取后端用户信息

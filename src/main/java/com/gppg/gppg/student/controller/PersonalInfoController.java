@@ -44,6 +44,9 @@ public class PersonalInfoController {
         }
 
         List<PersonalInfoVo> list = iQueryPointService.queryPersonalInfo(frontUser.getId());
+        if (list == null) {
+            response.setHttpResponse(ResponseType.FAILED, "查询前端用户失败");
+        }
         response.setHttpResponse(ResponseType.SUCCESS, list);
 
         return response;

@@ -78,12 +78,14 @@ public class GetPointController {
         return response;
     }
 
-    private void saveProofImage(FrontUserDomain frontUser, MultipartFile multipartFile) {
+    private void saveProofImage(FrontUserDomain frontUser, MultipartFile multipartFile) throws RuntimeException {
         String addEndTime = "";
         // 设置日期格式
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         SimpleDateFormat df1 = new SimpleDateFormat("HHmm");
+        SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMdd");
         String time = df1.format(new Date());
+        String time2 = df2.format(new Date());
         int timeCompare = Integer.valueOf(time);
         if (timeCompare > LAUNCH_START && timeCompare < LAUNCH_END) {
             addEndTime = df.format(new Date()) + "01";
@@ -91,11 +93,11 @@ public class GetPointController {
             addEndTime = df.format(new Date()) + "02";
         } else {
             // 不属于上传时间段
-
+            throw new CommonException(ResponseType.FAILED, "不属于上传时间段");
         }
         //路径，获取当前系统时间，之后再拼接到images后面
-        String filepath = "/data/static/lhbb/";
-        String realpath = filepath + "/" + addEndTime;
+        String filepath = "/data/static/gppg/" + time2;
+        String realpath = filepath + "/" + frontUser.getId() + addEndTime;
         try {
             //确认文件目录是否存在
             File dir = new File(filepath);
@@ -106,38 +108,35 @@ public class GetPointController {
             // 确认照片是否存在
             File file = new File(realpath);
             if (!file.exists()) {
-                Thumbnails.of(multipartFile.getInputStream()).scale(1f).outputQuality(1f).outputFormat("jpg").toFile(realpath);
+                Thumbnails.of(multipartFile.getInputStream()).outputFormat("jpg").toFile(realpath);
+                // 更新 积分记录表中的 图片存放位置
+                // 更新 用户积分表中的 用户总积分
+                String path = realpath + ".jpg";
+
+                try {
+                    // 新增记录：积分记录表
+                    PointRecordsDomain domain = new PointRecordsDomain();
+                    domain.setFrontUserId(frontUser.getId());
+                    domain.setImagePath(path);
+                    domain.setCreateTime(new Date());
+                    getPointService.save(domain);
+
+                    // 更新用户积分表
+                    QueryWrapper<FrontUserPointsDomain> wrapper = new QueryWrapper<>();
+                    wrapper.eq("front_user_id", frontUser.getId());
+                    FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
+                    domain1.setPoint(domain1.getPoint() + 1 * POINT);
+                    iFrontUserPointService.updateById(domain1);
+                } catch (Exception e) {
+                    throw new CommonException(ResponseType.FAILED_UPLOAD_IMAGES);
+                }
             } else {
                 // 文件已经存在
+                Thumbnails.of(multipartFile.getInputStream()).outputFormat("jpg").toFile(realpath);
             }
-            // 更新 积分记录表中的 图片存放位置
-            // 更新 用户积分表中的 用户总积分
-            String path = realpath + ".jpg";
-//            PointRecordsDomain pointRecordsDomain = getPointService.getById();
-//            if (pointRecordsDomain == null) {
-//                throw new CommonException();
-//            }
-            try {
-                // 新增记录：积分记录表
-                PointRecordsDomain domain = new PointRecordsDomain();
-                domain.setFrontUserId(frontUser.getId());
-                domain.setImagePath(path);
-                domain.setCreateTime(new Date());
-                getPointService.save(domain);
-
-                // 更新用户积分表
-                QueryWrapper<FrontUserPointsDomain> wrapper = new QueryWrapper<>();
-                wrapper.eq("front_user_id", frontUser.getId());
-                FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
-                domain1.setPoint(domain1.getPoint() + 1 * POINT);
-                iFrontUserPointService.updateById(domain1);
-
-            } catch (Exception e) {
-                throw new CommonException(ResponseType.FAILED_UPLOAD_IMAGES);
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
+            throw new CommonException(ResponseType.FAILED, "操作失败");
         }
     }
 }

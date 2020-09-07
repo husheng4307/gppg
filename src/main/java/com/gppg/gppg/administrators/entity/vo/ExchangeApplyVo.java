@@ -15,10 +15,9 @@ import java.util.Date;
 public class ExchangeApplyVo {
     private String applicantName;
     private int frontUserId;
-    private String applicantId;
+    private String phoneNumber;
     String goodsName;
     int exchangeRecordsId;
-//    int goodsId;
     int goodsNum;
     int applyState;
     Date applyTime;

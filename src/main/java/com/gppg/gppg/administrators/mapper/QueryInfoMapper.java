@@ -23,7 +23,7 @@ public interface QueryInfoMapper extends BaseMapper<ExchangeApplyVo> {
      * @param isApproved 申请状态
      * @return
      */
-    @Select({"<script>select a.name applicantName, a.id frontUserId, a.phone_number applicantId, c.strategy_name goodsName, b.id exchangeRecordsId, b.count_application goodsNum, b.is_approved applyState, b.time_application applyTime \n" +
+    @Select({"<script>select a.name applicantName, a.id frontUserId, a.phone_number phoneNumber, c.strategy_name goodsName, b.id exchangeRecordsId, b.count_application goodsNum, b.is_approved applyState, b.time_application applyTime \n" +
             "from front_user a,\n" +
             "     point_exchange_records b,\n" +
             "     point_exchange_strategy c\n" +
