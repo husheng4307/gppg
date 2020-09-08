@@ -54,6 +54,9 @@ public class UsePointController {
         QueryWrapper<ExchangeStrategyDomain> wrapper = new QueryWrapper<>();
         wrapper.eq("id", id);
         ExchangeStrategyDomain domain = iExchangesStrategyService.getOne(wrapper);
+        if (domain == null) {
+            return new HttpResponse(ResponseType.ILLEGAL_ID, "策略不存在");
+        }
         int point = domain.getPointAccquired();
         int needAdd = point * sum;
 
