@@ -132,6 +132,13 @@ public class GetPointController {
                     QueryWrapper<FrontUserPointsDomain> wrapper = new QueryWrapper<>();
                     wrapper.eq("front_user_id", frontUser.getId()).last("limit 1");
                     FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
+                    // 新用户则新增数据
+                    if (domain1 == null) {
+                        domain1.setExchangedPoint(0);
+                        domain1.setPoint(0);
+                        domain1.setFrontUserId(frontUser.getId());
+                        iFrontUserPointService.save(domain1);
+                    }
                     log.info("FrontUserPointsDomain = " + domain1.toString());
                     domain1.setPoint(domain1.getPoint() + 1 * POINT);
                     iFrontUserPointService.updateById(domain1);
