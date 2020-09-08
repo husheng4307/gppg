@@ -64,7 +64,7 @@ public class UsePointController {
         if (domain1 == null) {
             return new HttpResponse(ResponseType.FAILED, "操作失败");
         }
-        int finalPoint = domain1.getExchangedPoint() + needAdd;
+        int finalPoint = domain1.getExchangedPoint() - needAdd;
         if (finalPoint > domain1.getPoint()) {
             response.setHttpResponse(ResponseType.FAILED_INSUFFICIENT_POINT, null);
         } else {
