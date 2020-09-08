@@ -136,11 +136,13 @@ public class GetPointController {
                     if (domain1 == null) {
                         FrontUserPointsDomain domain2 = new FrontUserPointsDomain();
                         log.info("start update user point");
+
                         domain2.setFrontUserId(frontUser.getId());
                         domain2.setPoint(1);
                         domain2.setExchangedPoint(0);
                         log.info("domain2=" + domain2);
                         iFrontUserPointService.save(domain2);
+
                     } else {
                         log.info("FrontUserPointsDomain = " + domain1.toString());
                         domain1.setPoint(domain1.getPoint() + 1 * POINT);
@@ -148,6 +150,7 @@ public class GetPointController {
                         log.info("update user point success");
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     throw new CommonException(ResponseType.FAILED_UPLOAD_IMAGES);
                 }
             } else {
