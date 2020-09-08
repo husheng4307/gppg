@@ -46,9 +46,12 @@ public class QueryPointController {
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
+            log.info("Cookie is not null");
             for (Cookie cookie : cookies) {
-                System.out.println(cookie.getValue());
+                log.info(cookie.getValue());
             }
+        } else {
+            log.info("Cookie is null");
         }
 
 

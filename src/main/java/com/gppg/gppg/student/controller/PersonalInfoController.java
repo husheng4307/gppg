@@ -5,6 +5,7 @@ import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.student.entity.vo.PersonalInfoVo;
 import com.gppg.gppg.student.service.IQueryPointService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/student")
+@Slf4j
 public class PersonalInfoController {
 
     @Autowired
@@ -42,9 +44,12 @@ public class PersonalInfoController {
 
         Cookie[] cookies = request.getCookies();
         if (cookies != null) {
+            log.info("Cookie is not null");
             for (Cookie cookie : cookies) {
-                System.out.println(cookie.getValue());
+                log.info(cookie.getValue());
             }
+        } else {
+            log.info("Cookie is null");
         }
 
         if (frontUser == null) {

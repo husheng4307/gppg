@@ -103,8 +103,8 @@ public class loginController {
 
 
             if (
-//                    user == null
-                    false
+                    user == null
+//                    false
             ) {
                 // 用户信息入库
                 String nickName = null;
@@ -148,12 +148,12 @@ public class loginController {
                 }
 
                 //查询用户是否注册过 QDYH
-                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId("openid123");
+                FrontUserDomain qdyh = wxyhMapper.getFrontuserByOpenId(openid);
                 log.info(qdyh.toString());
 
                 //前端用户未注册，返回openid
                 if (qdyh == null) {
-                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid123");
+                    response.setHttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,openid);
                     return response;
                 }else{
                     //前端用户已注册
@@ -164,12 +164,12 @@ public class loginController {
         else {
 
                 //查询前端用户注册情况
-                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId("openid123");
+                FrontUserDomain qdyh1 = wxyhMapper.getFrontuserByOpenId(openid);
                 log.info(String.valueOf(qdyh1));
 
                 //前端用户未注册，返回skey
                 if (qdyh1 == null) {
-                    return new HttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,"openid123");
+                    return new HttpResponse(ResponseType.SUCCESS_MISSING_NECESSARY_ROLE,openid);
                 }
 
                 //前端用户已注册，更新QDYH表中skey，上次登录时间
@@ -187,7 +187,7 @@ public class loginController {
 //                subject.getSession().setAttribute("id", qdyh1.getQDYH_ZH());
 
                 // 返回结果
-                return new HttpResponse(ResponseType.SUCCESS,"openid123");
+                return new HttpResponse(ResponseType.SUCCESS,openid);
 
             }
 
