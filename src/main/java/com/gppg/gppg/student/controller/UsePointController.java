@@ -38,7 +38,7 @@ public class UsePointController {
     IStrategyRecordsService iStrategyRecordsService;
 
     @RequestMapping(value = "/usePoint", method = RequestMethod.POST)
-    public HttpResponse httpResponse(@RequestParam("strategyId") int strategyId,
+    public HttpResponse httpResponse(@RequestParam("id") int id,
                                      @RequestParam("sum") int sum) {
         HttpResponse response = new HttpResponse();
         // 获取前端用户信息
@@ -52,7 +52,7 @@ public class UsePointController {
 
         // 通过兑换策略id查找每一份所需要的积分,计算需要的总积分
         QueryWrapper<ExchangeStrategyDomain> wrapper = new QueryWrapper<>();
-        wrapper.eq("id", strategyId);
+        wrapper.eq("id", id);
         ExchangeStrategyDomain domain = iExchangesStrategyService.getOne(wrapper);
         int point = domain.getPointAccquired();
         int needAdd = point * sum;
@@ -68,7 +68,7 @@ public class UsePointController {
             domain1.setExchangedPoint(finalPoint);
             iFrontUserPointService.updateById(domain1);
             // 兑换记录表新增记录
-            StrategyRecordsDomain strategyRecordsDomain = new StrategyRecordsDomain(frontUser.getId(), strategyId, sum);
+            StrategyRecordsDomain strategyRecordsDomain = new StrategyRecordsDomain(frontUser.getId(), id, sum);
             iStrategyRecordsService.save(strategyRecordsDomain);
             response.setHttpResponse(ResponseType.SUCCESS, null);
         }

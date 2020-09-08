@@ -9,6 +9,7 @@ import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.common.service.FrontUserPointService;
 import com.gppg.gppg.student.entity.exception.CommonException;
 import com.gppg.gppg.student.service.IGetPointService;
+import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnails;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
@@ -34,6 +35,7 @@ import java.util.Date;
 
 @RestController
 @RequestMapping("/student")
+@Slf4j
 public class GetPointController {
 
     private static final int LAUNCH_START = 1000;
@@ -61,6 +63,8 @@ public class GetPointController {
             response.setHttpResponse(ResponseType.NOTEXIST, "学生信息不存在");
             return response;
         }
+
+        log.info("frontUser = " + frontUser.toString());
 
         //获取上传文件
         MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
@@ -108,7 +112,8 @@ public class GetPointController {
             // 确认照片是否存在
             File file = new File(realpath);
             if (!file.exists()) {
-                Thumbnails.of(multipartFile.getInputStream()).outputFormat("jpg").toFile(realpath);
+                log.info("file not exist, create ");
+                Thumbnails.of(multipartFile.getInputStream()).scale(1f).outputQuality(1f).outputFormat("jpg").toFile(realpath);
                 // 更新 积分记录表中的 图片存放位置
                 // 更新 用户积分表中的 用户总积分
                 String path = realpath + ".jpg";
@@ -121,18 +126,22 @@ public class GetPointController {
                     domain.setCreateTime(new Date());
                     getPointService.save(domain);
 
+                    log.info("update point records success");
+
                     // 更新用户积分表
                     QueryWrapper<FrontUserPointsDomain> wrapper = new QueryWrapper<>();
-                    wrapper.eq("front_user_id", frontUser.getId());
+                    wrapper.eq("front_user_id", frontUser.getId()).last("limit 1");
                     FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
+                    log.info("FrontUserPointsDomain = " + domain1.toString());
                     domain1.setPoint(domain1.getPoint() + 1 * POINT);
                     iFrontUserPointService.updateById(domain1);
+                    log.info("update user point success");
                 } catch (Exception e) {
                     throw new CommonException(ResponseType.FAILED_UPLOAD_IMAGES);
                 }
             } else {
                 // 文件已经存在
-                Thumbnails.of(multipartFile.getInputStream()).outputFormat("jpg").toFile(realpath);
+                Thumbnails.of(multipartFile.getInputStream()).scale(1f).outputQuality(1f).outputFormat("jpg").toFile(realpath);
             }
         } catch (IOException e) {
             e.printStackTrace();
