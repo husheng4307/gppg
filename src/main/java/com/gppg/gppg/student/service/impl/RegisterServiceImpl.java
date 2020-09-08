@@ -3,7 +3,9 @@ package com.gppg.gppg.student.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.gppg.gppg.common.entity.AcademyDomain;
 import com.gppg.gppg.common.entity.AllSchoolDomain;
+import com.gppg.gppg.student.entity.dto.AcademyDto;
 import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
+import com.gppg.gppg.student.entity.dto.SchoolDto;
 import com.gppg.gppg.student.mapper.RegisterMapper;
 import com.gppg.gppg.student.service.IRegisterService;
 import org.springframework.stereotype.Service;
@@ -21,15 +23,15 @@ import java.util.stream.Collectors;
 public class RegisterServiceImpl extends ServiceImpl<RegisterMapper, AllSchoolDomain> implements IRegisterService {
 
     @Override
-    public List<AllSchoolDomain> allSchoolAndAcademy() {
+    public List<SchoolDto> allSchoolAndAcademy() {
         try {
-            List<AllSchoolDomain> school = this.baseMapper.allSchool();
-            List<AcademyDomain> academy = this.baseMapper.allAcademy();
+            List<SchoolDto> school = this.baseMapper.allSchool();
+            List<AcademyDto> academy = this.baseMapper.allAcademy();
 
             for (int i = 0; i < school.size(); i++) {
-                List<AcademyDomain> list = new ArrayList<>();
+                List<AcademyDto> list = new ArrayList<>();
                 for (int j = 0; j < academy.size(); j++) {
-                    if (school.get(i).getId() == academy.get(j).getSchoolId()) {
+                    if (school.get(i).getXxid() == academy.get(j).getXxid()) {
                         list.add(academy.get(j));
                     }
                 }

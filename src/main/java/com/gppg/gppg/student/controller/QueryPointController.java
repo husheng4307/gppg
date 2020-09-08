@@ -55,7 +55,6 @@ public class QueryPointController {
             log.info("Cookie is null");
         }
 
-
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST,"学生信息不存在");
             return response;
