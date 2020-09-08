@@ -13,6 +13,7 @@ import com.gppg.gppg.common.util.MD5;
 import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
 import com.gppg.gppg.student.entity.dto.SchoolDto;
 import com.gppg.gppg.student.service.IRegisterService;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.subject.Subject;
@@ -29,6 +30,7 @@ import java.util.List;
  * des:
  */
 @RestController
+@Slf4j
 @RequestMapping("/student")
 public class RegisterController {
 
@@ -77,6 +79,7 @@ public class RegisterController {
 
         //定义通用类
         HttpResponse response = new HttpResponse();
+        log.info(name + " " + schoolId + " " + academyId + " " + phoneNumber + " " + openid);
 
         //获取微信用户信息
         WxyhDomain wxyhDomain = wxyhMapper.selectById(openid);
@@ -86,6 +89,7 @@ public class RegisterController {
         wrapper.eq("phone_number", phoneNumber);
         FrontUserDomain frontUser = frontUserService.getOne(wrapper);
         if (frontUser != null) {
+            log.info("frontuser is not null");
             frontUser.setOpenId(openid);
 
             try {
@@ -99,6 +103,7 @@ public class RegisterController {
             Subject subject = SecurityUtils.getSubject();
             UserToken token = new UserToken(frontUser.getphoneNumber(), frontUser.getPassword(), "WXFront");
             try {
+                log.info("try login");
                 subject.login(token);
             } catch (Exception e) {
                 response.setHttpResponse(ResponseType.ILLEGAL_ACCOUNT, null);
@@ -110,6 +115,7 @@ public class RegisterController {
         }
 
 //        String sr = DateUtil.converSfz2Sr(sfz);
+        log.info("try registry");
         String mm = "123456";
         //生成随机字符串盐
         String salt = MD5.randomString();
@@ -119,6 +125,7 @@ public class RegisterController {
         FrontUserDomain frontUserDomain = new FrontUserDomain(name, schoolId, academyId, phoneNumber, openid, passWithSalt, salt);
 
         try {
+            log.info("try insert frontUser");
             frontUserService.save(frontUserDomain);
             response.setHttpResponse(ResponseType.SUCCESS, "注册成功");
             System.out.println(frontUserDomain);
