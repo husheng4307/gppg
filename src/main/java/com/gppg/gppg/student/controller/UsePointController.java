@@ -61,6 +61,9 @@ public class UsePointController {
         QueryWrapper<FrontUserPointsDomain> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("front_user_id", frontUser.getId());
         FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper2);
+        if (domain1 == null) {
+            return new HttpResponse(ResponseType.FAILED, "操作失败");
+        }
         int finalPoint = domain1.getExchangedPoint() + needAdd;
         if (finalPoint > domain1.getPoint()) {
             response.setHttpResponse(ResponseType.FAILED_INSUFFICIENT_POINT, null);

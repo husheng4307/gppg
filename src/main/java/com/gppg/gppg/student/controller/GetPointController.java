@@ -97,7 +97,7 @@ public class GetPointController {
 //        }
         //路径，获取当前系统时间，之后再拼接到images后面
         String filepath = "/data/static/gppg/" + time2;
-        String realpath = filepath + "/" + frontUser.getId() + addEndTime;
+        String realpath = filepath + "/" + frontUser.getId() + "_" + addEndTime;
         try {
             //确认文件目录是否存在
             File dir = new File(filepath);

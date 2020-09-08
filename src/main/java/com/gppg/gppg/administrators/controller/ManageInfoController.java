@@ -64,7 +64,6 @@ public class ManageInfoController {
             return response;
         }
 
-
         // 根据兑换记录id查询相关信息
         QueryWrapper<StrategyRecordsDomain> wrapper1 = new QueryWrapper<>();
         wrapper1.eq("id", exchangeRecordsId);
@@ -80,6 +79,9 @@ public class ManageInfoController {
         QueryWrapper<ExchangeStrategyDomain> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("id", strategyId);
         ExchangeStrategyDomain exchangeStrategy = pointExchangeStrategyService.getOne(wrapper2);
+        if (exchangeStrategy == null) {
+            return new HttpResponse(ResponseType.ILLEGAL_ID, "策略ID不存在");
+        }
         int goodsPoint = exchangeStrategy.getPointAccquired();
 
         // 计算兑换所需积分
@@ -89,6 +91,9 @@ public class ManageInfoController {
         QueryWrapper<FrontUserPointsDomain> wrapper3 = new QueryWrapper<>();
         wrapper3.eq("front_user_id", frontUserId);
         FrontUserPointsDomain frontUserPoints = frontUserPointService.getOne(wrapper3);
+        if (frontUserPoints == null) {
+            return new HttpResponse(ResponseType.ILLEGAL_ID, "前端用户不存在");
+        }
         int availablePoint = frontUserPoints.getPoint() - frontUserPoints.getExchangedPoint();
         // 积分不足
         if (availablePoint < sumPoint) {
@@ -114,8 +119,14 @@ public class ManageInfoController {
         return response;
     }
 
+    /**
+     * 管理员更新策略
+     * @return
+     */
     public HttpResponse updateStrategy() {
         HttpResponse response = new HttpResponse();
+
+
         return response;
     }
 }
