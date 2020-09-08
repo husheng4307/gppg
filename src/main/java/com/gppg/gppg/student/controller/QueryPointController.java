@@ -6,6 +6,8 @@ import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.student.entity.dto.StudentPointDto;
 import com.gppg.gppg.student.service.IQueryPointService;
+import lombok.extern.slf4j.Slf4j;
+import lombok.extern.slf4j.XSlf4j;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
  * date: 2020/9/3 10:22
  * des:
  */
+@Slf4j
 @RestController
 @RequestMapping("/student")
 public class QueryPointController {
@@ -40,6 +43,7 @@ public class QueryPointController {
 
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST,"学生信息不存在");
+            log.info("学生信息不存在");
             return response;
         }
         System.out.println(frontUser);
