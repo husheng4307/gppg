@@ -38,7 +38,7 @@ public class UsePointController {
     IStrategyRecordsService iStrategyRecordsService;
 
     @RequestMapping(value = "/usePoint", method = RequestMethod.POST)
-    public HttpResponse httpResponse(@RequestParam("strategyId") int id,
+    public HttpResponse httpResponse(@RequestParam("id") int id,
                                      @RequestParam("sum") int sum) {
         HttpResponse response = new HttpResponse();
         // 获取前端用户信息
