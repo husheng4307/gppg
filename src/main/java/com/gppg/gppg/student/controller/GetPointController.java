@@ -135,6 +135,7 @@ public class GetPointController {
                     // 新用户则新增数据
                     if (domain1 == null) {
                         log.info("start update user point");
+                        log.info(frontUser.toString());
                         domain1.setFrontUserId(frontUser.getId());
                         domain1.setPoint(1);
                         domain1.setExchangedPoint(0);
@@ -147,6 +148,7 @@ public class GetPointController {
                         log.info("update user point success");
                     }
                 } catch (Exception e) {
+                    e.printStackTrace();
                     throw new CommonException(ResponseType.FAILED_UPLOAD_IMAGES);
                 }
             } else {
