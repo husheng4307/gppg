@@ -11,6 +11,7 @@ import com.gppg.gppg.common.service.FrontUserService;
 import com.gppg.gppg.common.shiro.UserToken;
 import com.gppg.gppg.common.util.MD5;
 import com.gppg.gppg.student.entity.dto.SchoolAndAcademyDto;
+import com.gppg.gppg.student.entity.dto.SchoolDto;
 import com.gppg.gppg.student.service.IRegisterService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -47,7 +48,7 @@ public class RegisterController {
     public HttpResponse allSchool() {
         // 定义返回
         HttpResponse response = new HttpResponse();
-        List<AllSchoolDomain> list = new LinkedList();
+        List<SchoolDto> list = new LinkedList();
         list = iRegisterService.allSchoolAndAcademy();
         if (list == null) {
             response.setHttpResponse(ResponseType.FAILED, "获取信息失败");

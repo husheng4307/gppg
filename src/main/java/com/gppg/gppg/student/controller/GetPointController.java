@@ -79,22 +79,22 @@ public class GetPointController {
     }
 
     private void saveProofImage(FrontUserDomain frontUser, MultipartFile multipartFile) throws RuntimeException {
-        String addEndTime = "";
+        String addEndTime = "01";
         // 设置日期格式
         SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
         SimpleDateFormat df1 = new SimpleDateFormat("HHmm");
         SimpleDateFormat df2 = new SimpleDateFormat("yyyyMMdd");
         String time = df1.format(new Date());
         String time2 = df2.format(new Date());
-        int timeCompare = Integer.valueOf(time);
-        if (timeCompare > LAUNCH_START && timeCompare < LAUNCH_END) {
-            addEndTime = df.format(new Date()) + "01";
-        } else if (timeCompare > DINNER_START && timeCompare < DINNER_END) {
-            addEndTime = df.format(new Date()) + "02";
-        } else {
-            // 不属于上传时间段
-            throw new CommonException(ResponseType.FAILED, "不属于上传时间段");
-        }
+//        int timeCompare = Integer.valueOf(time);
+//        if (timeCompare > LAUNCH_START && timeCompare < LAUNCH_END) {
+//            addEndTime = df.format(new Date()) + "01";
+//        } else if (timeCompare > DINNER_START && timeCompare < DINNER_END) {
+//            addEndTime = df.format(new Date()) + "02";
+//        } else {
+//            // 不属于上传时间段
+//            throw new CommonException(ResponseType.FAILED, "不属于上传时间段");
+//        }
         //路径，获取当前系统时间，之后再拼接到images后面
         String filepath = "/data/static/gppg/" + time2;
         String realpath = filepath + "/" + frontUser.getId() + addEndTime;

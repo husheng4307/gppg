@@ -51,7 +51,6 @@ public class QueryPointController {
             }
         }
 
-
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST,"学生信息不存在");
             return response;

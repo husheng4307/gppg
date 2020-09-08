@@ -64,7 +64,7 @@ public class QueryInfoController {
      * @return
      */
     @SuppressWarnings("rawtypes")
-    @RequestMapping(value = "/queryCountInfo", method = RequestMethod.POST)
+    @RequestMapping(value = "/queryCountInfo", method = RequestMethod.GET)
     public HttpResponse QueryCountInfo() {
         HttpResponse response = new HttpResponse();
 
