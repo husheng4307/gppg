@@ -5,6 +5,7 @@ import com.gppg.gppg.common.entity.FrontUserDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.student.entity.dto.StudentPointDto;
+import com.gppg.gppg.student.entity.exception.CommonException;
 import com.gppg.gppg.student.service.IQueryPointService;
 import lombok.extern.slf4j.Slf4j;
 import lombok.extern.slf4j.XSlf4j;
@@ -61,9 +62,11 @@ public class QueryPointController {
         }
 
         int id = frontUser.getId();
-        StudentPointDto studentPointDto = iQueryPointService.studentQueryPoint(id);
-        if (studentPointDto == null) {
-            response.setHttpResponse(ResponseType.FAILED, "操作失败");
+        StudentPointDto studentPointDto = null;
+        try {
+            studentPointDto = iQueryPointService.studentQueryPoint(id);
+        } catch (CommonException exception) {
+            return new HttpResponse(exception.getType(),exception.getMessage());
         }
         response.setHttpResponse(ResponseType.SUCCESS, studentPointDto);
         return response;
