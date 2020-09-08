@@ -6,9 +6,21 @@ package com.gppg.gppg.student.entity.dto;
  * des: 
  */
 public class QueryStrategyDto {
+    /**
+     * 策略ID
+     */
     int id;
+    /**
+     * 策略名称
+     */
     String strategyName;
+    /**
+     * 策略描述
+     */
     String strategyDescription;
+    /**
+     * 需要积分
+     */
     int pointAccquired;
 
     public int getId() {

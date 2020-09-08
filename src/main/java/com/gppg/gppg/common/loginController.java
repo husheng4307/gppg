@@ -186,7 +186,7 @@ public class loginController {
 
 //                subject.getSession().setAttribute("id", qdyh1.getQDYH_ZH());
 
-                //返回结果
+                // 返回结果
                 return new HttpResponse(ResponseType.SUCCESS,"openid123");
 
             }

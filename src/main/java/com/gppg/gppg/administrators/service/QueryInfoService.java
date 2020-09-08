@@ -1,6 +1,8 @@
 package com.gppg.gppg.administrators.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.gppg.gppg.administrators.entity.dto.CountInfoAcademyDto;
+import com.gppg.gppg.administrators.entity.dto.CountInfoSchoolDto;
 import com.gppg.gppg.administrators.entity.dto.ExchangedPointDto;
 import com.gppg.gppg.administrators.entity.dto.SumPointDto;
 import com.gppg.gppg.administrators.entity.vo.ExchangeApplyVo;
@@ -36,4 +38,19 @@ public interface QueryInfoService extends IService<ExchangeApplyVo> {
      * @return
      */
     List<ExchangedPointDto> queryExchangePoint(int schoolId, int daysAgo);
+
+    /**
+     * 查询  daysAgo 天之内的本校各个学院获得积分、使用积分
+     * @param schoolId
+     * @param daysAgo
+     * @return
+     */
+    List<CountInfoAcademyDto> queryCountInfoFromAcademy(int schoolId, int daysAgo);
+
+    /**
+     * 查询  daysAgo 天之内的各个学校获得积分、使用积分
+     * @param daysAgo
+     * @return
+     */
+    List<CountInfoAcademyDto> queryCountInfoFromSchool(int daysAgo);
 }

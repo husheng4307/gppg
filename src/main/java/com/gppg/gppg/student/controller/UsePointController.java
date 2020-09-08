@@ -37,7 +37,6 @@ public class UsePointController {
     @Autowired
     IStrategyRecordsService iStrategyRecordsService;
 
-
     @RequestMapping(value = "/usePoint", method = RequestMethod.POST)
     public HttpResponse httpResponse(@RequestParam("strategyId") int id,
                                      @RequestParam("sum") int sum) {

@@ -8,11 +8,29 @@ import java.util.Date;
  * des:
  */
 public class StrategyRecordsDto {
+    /**
+     * 兑换数量
+     */
     int countApplication;
+    /**
+     * 申请状态
+     */
     int isApproved;
+    /**
+     * 申请时间
+     */
     Date timeApplication;
+    /**
+     * 通过时间
+     */
     Date timeApproved;
+    /**
+     * 策略名称
+     */
     String strategyName;
+    /**
+     * 创建时间
+     */
     Date createTime;
 
     public int getCountApplication() {

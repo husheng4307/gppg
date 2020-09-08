@@ -1,6 +1,8 @@
 package com.gppg.gppg.administrators.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.gppg.gppg.administrators.entity.dto.CountInfoAcademyDto;
+import com.gppg.gppg.administrators.entity.dto.CountInfoSchoolDto;
 import com.gppg.gppg.administrators.entity.dto.ExchangedPointDto;
 import com.gppg.gppg.administrators.entity.dto.SumPointDto;
 import com.gppg.gppg.administrators.entity.vo.ExchangeApplyVo;
@@ -58,5 +60,17 @@ public class QueryInfoServiceImpl extends ServiceImpl<QueryInfoMapper, ExchangeA
         List<ExchangedPointDto> exchangePoint = this.baseMapper.queryExchangePoint(schoolId, daysAgo);
         System.out.println(exchangePoint);
         return exchangePoint;
+    }
+
+    @Override
+    public List<CountInfoAcademyDto> queryCountInfoFromAcademy(int schoolId, int daysAgo) {
+        List<CountInfoAcademyDto> list = this.baseMapper.queryCountInfoFromAcademy(schoolId, daysAgo);
+        return list;
+    }
+
+    @Override
+    public List<CountInfoAcademyDto> queryCountInfoFromSchool(int daysAgo) {
+        List<CountInfoAcademyDto> list = this.baseMapper.queryCountInfoFromSchool(daysAgo);
+        return list;
     }
 }

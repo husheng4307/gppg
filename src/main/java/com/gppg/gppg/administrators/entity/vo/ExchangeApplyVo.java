@@ -13,12 +13,36 @@ import java.util.Date;
 @Data
 @Accessors(chain = true)
 public class ExchangeApplyVo {
+    /**
+     * 申请人名称
+     */
     private String applicantName;
+    /**
+     * 前端用户id
+     */
     private int frontUserId;
+    /**
+     * 手机号码
+     */
     private String phoneNumber;
+    /**
+     * 商品名称
+     */
     String goodsName;
+    /**
+     * 兑换记录ID
+     */
     int exchangeRecordsId;
+    /**
+     * 商品ID
+     */
     int goodsNum;
+    /**
+     * 申请状态
+     */
     int applyState;
+    /**
+     * 申请时间
+     */
     Date applyTime;
 }

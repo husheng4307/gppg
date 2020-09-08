@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CountInfoVo {
+    int flag;
     List<SumPointDto> sumPoint;
     List<ExchangedPointDto> exchangedPoint;
 }

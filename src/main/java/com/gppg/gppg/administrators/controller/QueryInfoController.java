@@ -1,12 +1,10 @@
 package com.gppg.gppg.administrators.controller;
 
-import com.gppg.gppg.administrators.entity.dto.ExchangedPointDto;
-import com.gppg.gppg.administrators.entity.dto.SumPointDto;
-import com.gppg.gppg.administrators.entity.vo.CountInfoVo;
+import com.gppg.gppg.administrators.entity.dto.CountInfoAcademyDto;
+import com.gppg.gppg.administrators.entity.dto.CountInfoSchoolDto;
 import com.gppg.gppg.administrators.entity.vo.ExchangeApplyVo;
 import com.gppg.gppg.administrators.service.QueryInfoService;
 import com.gppg.gppg.common.entity.BackUserDomain;
-import com.gppg.gppg.common.entity.FrontUserDomain;
 import com.gppg.gppg.common.entity.response.HttpResponse;
 import com.gppg.gppg.common.entity.response.ResponseType;
 import org.apache.shiro.SecurityUtils;
@@ -15,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -28,6 +27,8 @@ public class QueryInfoController {
 
     @Autowired
     QueryInfoService queryInfoService;
+
+    int[] res = new int[]{1, 7, 30};
 
     /**
      * @param isApproved
@@ -59,11 +60,12 @@ public class QueryInfoController {
     /**
      * 管理员查询本校统计信息
      *
-     * @param daysAgo
+     * @param
      * @return
      */
+    @SuppressWarnings("rawtypes")
     @RequestMapping(value = "/queryCountInfo", method = RequestMethod.POST)
-    public HttpResponse QueryCountInfo(int daysAgo) {
+    public HttpResponse QueryCountInfo() {
         HttpResponse response = new HttpResponse();
 
         //获取后端用户信息
@@ -75,10 +77,22 @@ public class QueryInfoController {
             return response;
         }
 
-        // 拼接结果
-        List<SumPointDto> sumPoint = queryInfoService.querySumPoint(backUser.getSchoolId(), daysAgo);
-        List<ExchangedPointDto> exchangePoint = queryInfoService.queryExchangePoint(backUser.getSchoolId(), daysAgo);
+        List list = new LinkedList();
 
-        return new HttpResponse(ResponseType.SUCCESS, new CountInfoVo(sumPoint, exchangePoint));
+        // schoolId == 0 则说明用户为超级管理员
+        if (backUser.getSchoolId() == 0) {
+            list.add("学校积分统计");
+            for (int i = 0; i < res.length; i++) {
+                List<CountInfoAcademyDto> list1 = queryInfoService.queryCountInfoFromSchool(res[i]);
+                list.add(list1);
+            }
+        } else {
+            list.add("学院积分统计");
+            for (int i = 0; i < res.length; i++) {
+                List<CountInfoAcademyDto> list1 = queryInfoService.queryCountInfoFromAcademy(backUser.getSchoolId(), res[i]);
+                list.add(list1);
+            }
+        }
+        return new HttpResponse(ResponseType.SUCCESS, list);
     }
 }
