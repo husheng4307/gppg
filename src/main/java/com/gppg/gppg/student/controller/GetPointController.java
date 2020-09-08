@@ -134,13 +134,15 @@ public class GetPointController {
                     FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
                     // 新用户则新增数据
                     if (domain1 == null) {
+                        FrontUserPointsDomain domain2 = new FrontUserPointsDomain();
                         log.info("start update user point");
-                        log.info(frontUser.toString());
-                        domain1.setFrontUserId(frontUser.getId());
-                        domain1.setPoint(1);
-                        domain1.setExchangedPoint(0);
-                        log.info("domain1=" + domain1);
-                        iFrontUserPointService.save(domain1);
+
+                        domain2.setFrontUserId(frontUser.getId());
+                        domain2.setPoint(1);
+                        domain2.setExchangedPoint(0);
+                        log.info("domain2=" + domain2);
+                        iFrontUserPointService.save(domain2);
+
                     } else {
                         log.info("FrontUserPointsDomain = " + domain1.toString());
                         domain1.setPoint(domain1.getPoint() + 1 * POINT);
