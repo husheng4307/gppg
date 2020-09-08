@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -31,12 +33,19 @@ public class PersonalInfoController {
      * @return
      */
     @RequestMapping(value = "/queryPersonalInfo", method = RequestMethod.GET)
-    public HttpResponse personalInfo() {
+    public HttpResponse personalInfo(HttpServletRequest request) {
         HttpResponse response = new HttpResponse();
 
         //获取前端用户信息
         Subject subject = SecurityUtils.getSubject();
         FrontUserDomain frontUser = (FrontUserDomain)subject.getPrincipal();
+
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie.getValue());
+            }
+        }
 
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST,"学生信息不存在");

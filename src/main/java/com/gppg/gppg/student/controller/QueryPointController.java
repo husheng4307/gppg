@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author: Yang
  * date: 2020/9/3 10:22
@@ -34,19 +37,25 @@ public class QueryPointController {
      * @return
      */
     @RequestMapping(value = "/queryPoint", method = RequestMethod.GET)
-    public HttpResponse queryPoint() {
+    public HttpResponse queryPoint(HttpServletRequest request) {
         HttpResponse response = new HttpResponse();
 
         //获取前端用户信息
         Subject subject = SecurityUtils.getSubject();
         FrontUserDomain frontUser = (FrontUserDomain)subject.getPrincipal();
 
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                System.out.println(cookie.getValue());
+            }
+        }
+
+
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST,"学生信息不存在");
-            log.info("学生信息不存在");
             return response;
         }
-        System.out.println(frontUser);
 
         int id = frontUser.getId();
         StudentPointDto studentPointDto = iQueryPointService.studentQueryPoint(id);
