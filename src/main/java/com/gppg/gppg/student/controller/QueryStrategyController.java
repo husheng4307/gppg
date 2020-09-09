@@ -58,7 +58,7 @@ public class QueryStrategyController {
         int schoolId = frontUser.getSchoolId();
         list = iQueryStrategyService.queryStrategy(schoolId);
         if (list == null) {
-
+            return new HttpResponse(ResponseType.FAILED, "操作失败");
         }
         response.setHttpResponse(ResponseType.SUCCESS, list);
         return response;

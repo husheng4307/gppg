@@ -20,6 +20,7 @@ import java.util.List;
 public class QueryStrategyServiceImpl extends ServiceImpl<QueryStrategy, ExchangeStrategyDomain> implements IQueryStrategyService {
     @Override
     public List<QueryStrategyDto> queryStrategy(int schoolId) {
+        String url = "https://sp.ncesw.gov.cn:9999/gppg/static/gppg/miniapp/exchange_images/";
         try {
             List<ExchangeStrategyDomain> list = this.baseMapper.queryStrategy(schoolId);
             List<QueryStrategyDto> res = new ArrayList<>();
@@ -29,6 +30,7 @@ public class QueryStrategyServiceImpl extends ServiceImpl<QueryStrategy, Exchang
                 dto.setStrategyName(list.get(i).getStrategyName());
                 dto.setPointAccquired(list.get(i).getPointAccquired());
                 dto.setStrategyDescription(list.get(i).getStrategyDescription());
+                dto.setPictureUrl(url + list.get(i).getId() + ".png");
                 res.add(dto);
             }
             return res;

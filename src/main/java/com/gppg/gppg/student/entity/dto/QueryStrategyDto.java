@@ -1,10 +1,13 @@
 package com.gppg.gppg.student.entity.dto;
 
+import lombok.Data;
+
 /**
  * @author: Yang
  * date: 2020/9/3 10:58
  * des: 
  */
+@Data
 public class QueryStrategyDto {
     /**
      * 策略ID
@@ -22,6 +25,8 @@ public class QueryStrategyDto {
      * 需要积分
      */
     int pointAccquired;
+
+    String pictureUrl;
 
     public int getId() {
         return id;
