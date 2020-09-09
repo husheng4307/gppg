@@ -54,7 +54,7 @@ public class ManageInfoServiceImpl implements ManageInfoService {
         int strategyId = strategyRecords.getPointExchangeStrategy();
         // 获得兑换数量
         int goodsNum = strategyRecords.getCountApplication();
-        if (strategyRecords.getIsApproved() == 0) {
+        if (strategyRecords.getIsApproved() != 0) {
             throw new CommonException(ResponseType.FAILED, "该申请已处理，请勿重复提交");
         }
 
