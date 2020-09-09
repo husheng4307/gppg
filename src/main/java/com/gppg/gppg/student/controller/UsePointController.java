@@ -71,7 +71,7 @@ public class UsePointController {
         if (finalPoint > domain1.getPoint()) {
             response.setHttpResponse(ResponseType.FAILED_INSUFFICIENT_POINT, null);
         } else {
-            domain1.setExchangedPoint(domain1.getExchangedPoint() + finalPoint);
+            domain1.setExchangedPoint(domain1.getExchangedPoint() + needAdd);
             iFrontUserPointService.updateById(domain1);
             // 兑换记录表新增记录
             StrategyRecordsDomain strategyRecordsDomain = new StrategyRecordsDomain(frontUser.getId(), id, sum);

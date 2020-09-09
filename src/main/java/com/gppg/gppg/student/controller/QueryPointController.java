@@ -65,6 +65,7 @@ public class QueryPointController {
         try {
             studentPointDto = iQueryPointService.studentQueryPoint(id);
         } catch (CommonException exception) {
+            exception.getMessage();
             return new HttpResponse(exception.getType(),exception.getMessage());
         }
         response.setHttpResponse(ResponseType.SUCCESS, studentPointDto);
