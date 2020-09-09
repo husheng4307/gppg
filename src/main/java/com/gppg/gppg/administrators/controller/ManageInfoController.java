@@ -102,7 +102,7 @@ public class ManageInfoController {
 
         // 管理员拒绝申请, 返还积分,并在兑换记录表中更新
         if (isApproved == DIS_AGREE) {
-            frontUserPoints.setExchangedPoint(frontUserPoints.getExchangedPoint() + sumPoint);
+            frontUserPoints.setExchangedPoint(frontUserPoints.getExchangedPoint() - sumPoint);
             strategyRecords.setIsApproved(DIS_AGREE);
             strategyRecords.setBackUserId(backUser.getId());
             strategyRecords.setTimeApproved(new Date());

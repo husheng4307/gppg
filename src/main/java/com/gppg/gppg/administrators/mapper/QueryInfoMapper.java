@@ -30,10 +30,10 @@ public interface QueryInfoMapper extends BaseMapper<ExchangeApplyVo> {
             "     point_exchange_strategy c\n" +
             "where a.id = b.front_user_id\n" +
             "  and b.point_exchange_strategy = c.id\n" +
-            "  and a.school_id = #{schoolId}\n" +
+            "  and a.school_id = #{schoolId} \n" +
             "  <if test = \" isApproved != null \">" +
             "and b.is_approved = #{isApproved}" +
-            "</if></script>"})
+            "</if> order by b.time_application desc </script>"})
     List<ExchangeApplyVo> exchangeApply(@Param("schoolId") int schoolId, @Param("isApproved") Integer isApproved);
 
     /**
