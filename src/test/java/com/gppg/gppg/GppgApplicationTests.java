@@ -28,7 +28,7 @@
 //        //加盐
 //        String passWithSalt = MD5.md5("123456",salt);
 //
-//        domain.setAccount("root");
+//        domain.setAccount("root1");
 //        domain.setPassword(passWithSalt);
 //        domain.setSalt(salt);
 //        domain.setName("aotuman");

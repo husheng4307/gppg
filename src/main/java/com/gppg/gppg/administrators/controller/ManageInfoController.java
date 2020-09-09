@@ -1,6 +1,7 @@
 package com.gppg.gppg.administrators.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.gppg.gppg.administrators.service.ManageInfoService;
 import com.gppg.gppg.common.entity.BackUserDomain;
 import com.gppg.gppg.common.entity.ExchangeStrategyDomain;
 import com.gppg.gppg.common.entity.FrontUserPointsDomain;
@@ -10,6 +11,7 @@ import com.gppg.gppg.common.entity.response.ResponseType;
 import com.gppg.gppg.common.service.FrontUserPointService;
 import com.gppg.gppg.common.service.PointExchangeRecordsService;
 import com.gppg.gppg.common.service.PointExchangeStrategyService;
+import com.gppg.gppg.student.entity.exception.CommonException;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,17 +31,8 @@ import java.util.Date;
 @RequestMapping("/administrators")
 public class ManageInfoController {
 
-    public static final int AGREE = 1;
-    public static final int DIS_AGREE = 2;
-
     @Autowired
-    FrontUserPointService frontUserPointService;
-
-    @Autowired
-    PointExchangeRecordsService pointExchangeRecordsService;
-
-    @Autowired
-    PointExchangeStrategyService pointExchangeStrategyService;
+    ManageInfoService infoService;
 
     /**
      * 管理员处理本校学生兑换申请
@@ -64,59 +57,15 @@ public class ManageInfoController {
             return response;
         }
 
-        // 根据兑换记录id查询相关信息
-        QueryWrapper<StrategyRecordsDomain> wrapper1 = new QueryWrapper<>();
-        wrapper1.eq("id", exchangeRecordsId);
-        StrategyRecordsDomain strategyRecords = pointExchangeRecordsService.getOne(wrapper1);
-        if (strategyRecords == null) {
-            return new HttpResponse(ResponseType.ILLEGAL_ID, "兑换记录ID不存在");
+        /**
+         * 处理学生发起的兑换申请
+         */
+        try {
+            infoService.dealStudentApply(frontUserId, exchangeRecordsId, isApproved, backUser);
+        } catch (CommonException e) {
+            return new HttpResponse(e.getType(), e.getMessage());
         }
-        // 获得策略id, 查询策略所需积分
-        int strategyId = strategyRecords.getPointExchangeStrategy();
-        // 获得兑换数量
-        int goodsNum = strategyRecords.getCountApplication();
-
-        QueryWrapper<ExchangeStrategyDomain> wrapper2 = new QueryWrapper<>();
-        wrapper2.eq("id", strategyId);
-        ExchangeStrategyDomain exchangeStrategy = pointExchangeStrategyService.getOne(wrapper2);
-        if (exchangeStrategy == null) {
-            return new HttpResponse(ResponseType.ILLEGAL_ID, "策略ID不存在");
-        }
-        int goodsPoint = exchangeStrategy.getPointAccquired();
-
-        // 计算兑换所需积分
-        int sumPoint = goodsPoint * goodsNum;
-
-        // 查询该前端用户可用积分
-        QueryWrapper<FrontUserPointsDomain> wrapper3 = new QueryWrapper<>();
-        wrapper3.eq("front_user_id", frontUserId);
-        FrontUserPointsDomain frontUserPoints = frontUserPointService.getOne(wrapper3);
-        if (frontUserPoints == null) {
-            return new HttpResponse(ResponseType.ILLEGAL_ID, "前端用户不存在");
-        }
-        int availablePoint = frontUserPoints.getPoint() - frontUserPoints.getExchangedPoint();
-        // 积分不足
-        if (availablePoint < sumPoint) {
-            return new HttpResponse(ResponseType.FAILED_INSUFFICIENT_POINT, "积分不足");
-        }
-
-        // 管理员拒绝申请, 返还积分,并在兑换记录表中更新
-        if (isApproved == DIS_AGREE) {
-            frontUserPoints.setExchangedPoint(frontUserPoints.getExchangedPoint() - sumPoint);
-            strategyRecords.setIsApproved(DIS_AGREE);
-            strategyRecords.setBackUserId(backUser.getId());
-            strategyRecords.setTimeApproved(new Date());
-            pointExchangeRecordsService.updateById(strategyRecords);
-            frontUserPointService.updateById(frontUserPoints);
-        } else {
-            // 管理员同意申请
-            strategyRecords.setIsApproved(AGREE);
-            strategyRecords.setBackUserId(backUser.getId());
-            strategyRecords.setTimeApproved(new Date());
-            pointExchangeRecordsService.updateById(strategyRecords);
-        }
-        response.setHttpResponse(ResponseType.SUCCESS, "操作成功");
-        return response;
+        return new HttpResponse(ResponseType.SUCCESS, null);
     }
 
     /**

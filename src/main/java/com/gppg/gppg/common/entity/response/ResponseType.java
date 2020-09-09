@@ -26,6 +26,7 @@ public enum ResponseType {
     FAILED_UPDATE_FRONTUSER(false, 1015, "更新前端用户失败"),
     FAILED_INSUFFICIENT_POINT(false, 1016, "积分不足"),
     ILLEGAL_ID(false, 1017, "id不存在"),
+    FAILED_DB(false, 1018, "数据库操作失败"),
     FAILED_UPLOAD_IMAGES(false,1020,"图片上传失败"),
     SUCCESS_MISSING_NECESSARY_ROLE(true,1023,"登录成功，但必要角色未注册"),
 
