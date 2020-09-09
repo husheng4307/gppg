@@ -77,10 +77,10 @@ public class ManageInfoServiceImpl implements ManageInfoService {
             throw new CommonException(ResponseType.ILLEGAL_ID, "前端用户不存在");
         }
         int availablePoint = frontUserPoints.getPoint() - frontUserPoints.getExchangedPoint();
-        // 积分不足
-        if (availablePoint < sumPoint) {
-            throw new CommonException(ResponseType.FAILED_INSUFFICIENT_POINT, "积分不足");
-        }
+//        // 积分不足
+//        if (availablePoint < sumPoint) {
+//            throw new CommonException(ResponseType.FAILED_INSUFFICIENT_POINT, "积分不足");
+//        }
 
         try {
             // 管理员拒绝申请, 返还积分,并在兑换记录表中更新
