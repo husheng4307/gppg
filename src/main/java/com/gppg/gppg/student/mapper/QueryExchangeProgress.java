@@ -28,6 +28,6 @@ public interface QueryExchangeProgress extends BaseMapper<StrategyRecordsDomain>
             "from point_exchange_records a,\n" +
             "     point_exchange_strategy b\n" +
             "where a.point_exchange_strategy = b.id\n" +
-            "  and a.front_user_id = #{id}")
+            "  and a.front_user_id = #{id} order by a.time_application desc")
     List<StrategyRecordsDto> queryExchangeProgress(@Param("id") int id);
 }
