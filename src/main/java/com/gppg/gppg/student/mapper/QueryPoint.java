@@ -33,14 +33,15 @@ public interface QueryPoint extends BaseMapper<FrontUserPointsDomain> {
      * @param userId
      * @return
      */
-    @Select("select a.name userName, b.point userPoint, b.exchanged_point userExchangedPoint, c.academy_name academyName, d.school_name schoolName\n" +
-            "from front_user a,\n" +
-            "     front_user_points b,\n" +
-            "     academy c,\n" +
-            "     school d\n" +
-            "where a.school_id = d.id\n" +
-            "  and a.academy_id = c.id\n" +
-            "  and a.id = b.front_user_id\n" +
-            "  and a.id = #{userId}")
+    @Select("select a.name                       userName,\n" +
+            "       ifnull(b.point, 0)           userPoint,\n" +
+            "       ifnull(b.exchanged_point, 0) userExchangedPoint,\n" +
+            "       c.academy_name               academyName,\n" +
+            "       d.school_name                schoolName\n" +
+            "from front_user a\n" +
+            "left join front_user_points b on a.id = b.front_user_id\n" +
+            "inner join academy c on a.academy_id = c.id\n" +
+            "inner join school d on a.school_id = d.id\n" +
+            "where a.id = #{userId}")
     List<PersonalInfoVo> queryPersonalInfo(int userId);
 }

@@ -34,8 +34,6 @@ public class PersonalInfoController {
     @Autowired
     IQueryPointService iQueryPointService;
 
-    @Autowired
-    FrontUserPointService iFrontUserPointService;
 
     /**
      * @return
@@ -61,21 +59,6 @@ public class PersonalInfoController {
         if (frontUser == null) {
             response.setHttpResponse(ResponseType.NOTEXIST, "学生信息不存在");
             return response;
-        }
-
-        try {
-            QueryWrapper<FrontUserPointsDomain> wrapper = new QueryWrapper<>();
-            wrapper.eq("front_user_id", frontUser.getId());
-            FrontUserPointsDomain domain = iFrontUserPointService.getOne(wrapper);
-            if (domain == null) {
-                FrontUserPointsDomain domain1 = iFrontUserPointService.getOne(wrapper);
-                domain1.setFrontUserId(frontUser.getId());
-                domain1.setPoint(0);
-                domain1.setExchangedPoint(0);
-                iFrontUserPointService.save(domain1);
-            }
-        } catch (Exception e) {
-            throw new CommonException(ResponseType.FAILED, "操作失败");
         }
 
         List<PersonalInfoVo> list = iQueryPointService.queryPersonalInfo(frontUser.getId());
